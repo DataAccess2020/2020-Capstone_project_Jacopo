@@ -28,22 +28,56 @@ bernie <- get_timelines(
   "BernieSanders",
   n = 100)
 
+# Downloading the 100 most recent Elizabeth Warren's tweets
+
+warren <- get_timelines(
+  "ewarren",
+  n = 100)
+
+# Downloading the 100 most recent Pete Buttigieg's tweets
+
+pete <- get_timelines(
+  "PeteButtigieg",
+  n = 100)
+
+# Downloading the 100 most recent Joe Biden's tweets
+
+biden <- get_timelines(
+  "JoeBiden",
+  n = 100)
+
+
+
 # Cleaning up the tweets -------------------------------------------------------------------------------------
 
 # Removing retweets
 bernie_organic <- bernie[bernie$is_retweet==FALSE, ] 
+warren_organic <- warren[warren$is_retweet==FALSE, ] 
+pete_organic <- pete[pete$is_retweet==FALSE, ] 
+biden_organic <- biden[biden$is_retweet==FALSE, ] 
+
 
 # Removing replies
 bernie_organic <- subset(bernie_organic, is.na(bernie_organic$reply_to_status_id)) 
+warren_organic <- subset(warren_organic, is.na(warren_organic$reply_to_status_id)) 
+pete_organic <- subset(pete_organic, is.na(pete_organic$reply_to_status_id)) 
+biden_organic <- subset(biden_organic, is.na(biden_organic$reply_to_status_id)) 
 
 
 # Showing the ratio of replies/retweets/organic tweets -----------------------------------------------------------
 
 # Keeping only the retweets
 bernie_retweets <- bernie[bernie$is_retweet==TRUE,]
+warren_retweets <- warren[warren$is_retweet==TRUE,]
+pete_retweets <- pete[pete$is_retweet==TRUE,]
+biden_retweets <- biden[biden$is_retweet==TRUE,]
+
 
 # Keeping only the replies
 bernie_replies <- subset(bernie, !is.na(bernie$reply_to_status_id))
+warren_replies <- subset(warren, !is.na(warren$reply_to_status_id))
+pete_replies <- subset(pete, !is.na(pete$reply_to_status_id))
+biden_replies <- subset(biden, !is.na(biden$reply_to_status_id))
 
 
 # Creating a data frame containing the distribution of organic tweets, retweets, and replies
@@ -51,6 +85,22 @@ bernie_data <- data.frame(
   category=c("organic tweets", "retweets", "replies"),
   count=c(84, 16, 0)
 )
+
+warren_data <- data.frame(
+  category=c("organic tweets", "retweets", "replies"),
+  count=c(70, 28, 2)
+)
+
+pete_data <- data.frame(
+  category=c("organic tweets", "retweets", "replies"),
+  count=c(70, 27, 3)
+)
+
+biden_data <- data.frame(
+  category=c("organic tweets", "retweets", "replies"),
+  count=c(95, 5, 0)
+)
+
 
 # Visualising the distribution of organic tweets, retweets, and replies
 
