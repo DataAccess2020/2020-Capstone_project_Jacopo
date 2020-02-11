@@ -228,10 +228,17 @@ biden_organic$text <-  gsub("caign", "", biden_organic$text)
 warren_organic$text <-  gsub("im", "", warren_organic$text)
 warren_organic$text <-  gsub("i'm", "", warren_organic$text)
 
-
 # I can't manage to remove these two
 
+pete_organic$text <-  gsub("hshire", "", pete_organic$text) 
+pete_organic$text <-  gsub("it's", "", pete_organic$text) 
+pete_organic$text <-  gsub("chip", "", pete_organic$text) 
+pete_organic$text <-  gsub("you're", "", pete_organic$text) 
+pete_organic$text <-  gsub("we're", "", pete_organic$text) 
+pete_organic$text <-  gsub("fitn", "", pete_organic$text) 
+pete_organic$text <-  gsub("can't", "", pete_organic$text) 
 
+# Didn't manage to remove any of these except for "chip"
 
 # Removing "hshire"
 bernie_organic$text <-  gsub("hshire", "", bernie_organic$text)
@@ -300,6 +307,18 @@ warren_cleaned %>%
         y = "Unique words",
         title = "Unique word counts found in tweets made by Elizabeth Warren")
 
+pete_cleaned %>% 
+  count(word, sort = TRUE) %>% 
+  top_n(20) %>% 
+  mutate(word = reorder(word, n)) %>% 
+  ggplot(aes(x = word, y = n)) +
+  geom_col () +
+  xlab(NULL) +
+  coord_flip () + 
+  theme_classic() +
+  labs (x = "Count",
+        y = "Unique words",
+        title = "Unique word counts found in tweets made by Pete Buttigieg")
 
 
 
