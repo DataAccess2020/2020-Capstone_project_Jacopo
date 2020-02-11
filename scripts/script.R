@@ -102,7 +102,7 @@ biden_data <- data.frame(
 )
 
 
-# Visualising the distribution of organic tweets, retweets, and replies
+# Visualising the distribution of organic tweets, retweets, and replies for Bernie Sanders
 
 # Adding columns 
 bernie_data$fraction = bernie_data$count / sum(bernie_data$count)
@@ -111,15 +111,74 @@ bernie_data$ymax = cumsum(bernie_data$fraction)
 bernie_data$ymin = c(0, head(bernie_data$ymax, n=-1))
 
 # Adding a legend
-Type_of_Tweet <- paste(bernie_data$category, bernie_data$percentage, "%")
+Type_of_Tweet_Bernie <- paste(bernie_data$category, bernie_data$percentage, "%")
 
 # 
-ggplot(bernie_data, aes(ymax=ymax, ymin=ymin, xmax=4, xmin=3, fill=Type_of_Tweet)) +
+ggplot(bernie_data, aes(ymax=ymax, ymin=ymin, xmax=4, xmin=3, fill=Type_of_Tweet_Bernie)) +
   geom_rect() +
   coord_polar(theta="y") + 
   xlim(c(2, 4)) +
   theme_void() +
   theme(legend.position = "right")
+
+# Visualising the distribution of organic tweets, retweets, and replies for Elizabeth Warren
+
+# Adding columns 
+warren_data$fraction = warren_data$count / sum(warren_data$count)
+warren_data$percentage = warren_data$count / sum(warren_data$count) * 100
+warren_data$ymax = cumsum(warren_data$fraction)
+warren_data$ymin = c(0, head(warren_data$ymax, n=-1))
+
+# Adding a legend
+Type_of_Tweet_Warren <- paste(warren_data$category, warren_data$percentage, "%")
+
+# 
+ggplot(warren_data, aes(ymax=ymax, ymin=ymin, xmax=4, xmin=3, fill=Type_of_Tweet_Warren)) +
+  geom_rect() +
+  coord_polar(theta="y") + 
+  xlim(c(2, 4)) +
+  theme_void() +
+  theme(legend.position = "right")
+
+# Visualising the distribution of organic tweets, retweets, and replies for Pete Buttigieg
+
+# Adding columns 
+pete_data$fraction = pete_data$count / sum(pete_data$count)
+pete_data$percentage = pete_data$count / sum(pete_data$count) * 100
+pete_data$ymax = cumsum(pete_data$fraction)
+pete_data$ymin = c(0, head(pete_data$ymax, n=-1))
+
+# Adding a legend
+Type_of_Tweet_Pete <- paste(pete_data$category, pete_data$percentage, "%")
+
+# 
+ggplot(pete_data, aes(ymax=ymax, ymin=ymin, xmax=4, xmin=3, fill=Type_of_Tweet_Pete)) +
+  geom_rect() +
+  coord_polar(theta="y") + 
+  xlim(c(2, 4)) +
+  theme_void() +
+  theme(legend.position = "right")
+
+# Visualising the distribution of organic tweets, retweets, and replies for Joe Biden
+
+# Adding columns 
+biden_data$fraction = biden_data$count / sum(biden_data$count)
+biden_data$percentage = biden_data$count / sum(biden_data$count) * 100
+biden_data$ymax = cumsum(biden_data$fraction)
+biden_data$ymin = c(0, head(biden_data$ymax, n=-1))
+
+# Adding a legend
+Type_of_Tweet_Biden <- paste(biden_data$category, biden_data$percentage, "%")
+
+# 
+ggplot(biden_data, aes(ymax=ymax, ymin=ymin, xmax=4, xmin=3, fill=Type_of_Tweet_Biden)) +
+  geom_rect() +
+  coord_polar(theta="y") + 
+  xlim(c(2, 4)) +
+  theme_void() +
+  theme(legend.position = "right")
+
+
 
 
 # Cleaning the text ----------------------------------------------------------------------------------------
