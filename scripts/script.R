@@ -185,21 +185,53 @@ ggplot(biden_data, aes(ymax=ymax, ymin=ymin, xmax=4, xmin=3, fill=Type_of_Tweet_
 
 # Removing http elements 
 bernie_organic$text <-  gsub("https\\S*", "", bernie_organic$text)
+warren_organic$text <-  gsub("https\\S*", "", warren_organic$text)
+pete_organic$text <-  gsub("https\\S*", "", pete_organic$text)
+biden_organic$text <-  gsub("https\\S*", "", biden_organic$text)
+
 
 # Removing @ mentions 
 bernie_organic$text <-  gsub("@\\S*", "", bernie_organic$text) 
+warren_organic$text <-  gsub("@\\S*", "", warren_organic$text) 
+pete_organic$text <-  gsub("@\\S*", "", pete_organic$text) 
+biden_organic$text <-  gsub("@\\S*", "", biden_organic$text) 
+
 
 # Removing "amp"
 bernie_organic$text <-  gsub("amp", "", bernie_organic$text) 
+warren_organic$text <-  gsub("amp", "", warren_organic$text) 
+pete_organic$text <-  gsub("amp", "", pete_organic$text) 
+biden_organic$text <-  gsub("amp", "", biden_organic$text) 
+
 
 # Removing "[\r\n]"
 bernie_organic$text <-  gsub("[\r\n]", "", bernie_organic$text)
+warren_organic$text <-  gsub("[\r\n]", "", warren_organic$text)
+pete_organic$text <-  gsub("[\r\n]", "", pete_organic$text)
+biden_organic$text <-  gsub("[\r\n]", "", biden_organic$text)
+
 
 # Removing punctuation 
 bernie_organic$text <-  gsub("[[:punct:]]", "", bernie_organic$text)
+warren_organic$text <-  gsub("[[:punct:]]", "", warren_organic$text)
+pete_organic$text <-  gsub("[[:punct:]]", "", pete_organic$text)
+biden_organic$text <-  gsub("[[:punct:]]", "", biden_organic$text)
+
 
 # Removing "caign"
 bernie_organic$text <-  gsub("caign", "", bernie_organic$text)
+warren_organic$text <-  gsub("caign", "", warren_organic$text)
+pete_organic$text <-  gsub("caign", "", pete_organic$text)
+biden_organic$text <-  gsub("caign", "", biden_organic$text)
+
+# Removing "im" and "i'm"
+warren_organic$text <-  gsub("im", "", warren_organic$text)
+warren_organic$text <-  gsub("i'm", "", warren_organic$text)
+
+
+# I can't manage to remove these two
+
+
 
 # Removing "hshire"
 bernie_organic$text <-  gsub("hshire", "", bernie_organic$text)
@@ -213,6 +245,28 @@ bernie_cleaned <- bernie_organic %>%
   unnest_tokens(word, text)
 
 bernie_cleaned <- bernie_cleaned %>%
+  anti_join(stop_words)
+
+
+warren_cleaned <- warren_organic %>%
+  select(text) %>%
+  unnest_tokens(word, text)
+
+warren_cleaned <- warren_cleaned %>%
+  anti_join(stop_words)
+
+pete_cleaned <- pete_organic %>%
+  select(text) %>%
+  unnest_tokens(word, text)
+
+pete_cleaned <- pete_cleaned %>%
+  anti_join(stop_words)
+
+biden_cleaned <- biden_organic %>%
+  select(text) %>%
+  unnest_tokens(word, text)
+
+biden_cleaned <- biden_cleaned %>%
   anti_join(stop_words)
 
 
@@ -231,6 +285,21 @@ bernie_cleaned %>%
   labs (x = "Count",
         y = "Unique words",
         title = "Unique word counts found in tweets made by Bernie Sanders")
+
+
+warren_cleaned %>% 
+  count(word, sort = TRUE) %>% 
+  top_n(20) %>% 
+  mutate(word = reorder(word, n)) %>% 
+  ggplot(aes(x = word, y = n)) +
+  geom_col () +
+  xlab(NULL) +
+  coord_flip () + 
+  theme_classic() +
+  labs (x = "Count",
+        y = "Unique words",
+        title = "Unique word counts found in tweets made by Elizabeth Warren")
+
 
 
 
