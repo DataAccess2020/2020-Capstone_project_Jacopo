@@ -220,28 +220,9 @@ pete_organic$text <-  gsub("[[:punct:]]", "", pete_organic$text)
 biden_organic$text <-  gsub("[[:punct:]]", "", biden_organic$text)
 
 
-# Removing "caign"
-bernie_organic$text <-  gsub("caign", "", bernie_organic$text)
-warren_organic$text <-  gsub("caign", "", warren_organic$text)
-pete_organic$text <-  gsub("caign", "", pete_organic$text)
-biden_organic$text <-  gsub("caign", "", biden_organic$text)
+# Words I'm adding as stop words 
 
-# Removing "im" and "i'm"
-warren_organic$text <-  gsub("im", "", warren_organic$text)
-warren_organic$text <-  gsub("i'm", "", warren_organic$text)
-
-# I can't manage to remove these two
-
-pete_organic$text <-  gsub("hshire", " ", pete_organic$text) 
-pete_organic$text <-  gsub("it's", "", pete_organic$text) 
-pete_organic$text <-  gsub("chip", "", pete_organic$text) 
-pete_organic$text <-  gsub("you're", "", pete_organic$text) 
-pete_organic$text <-  gsub("we're", "", pete_organic$text) 
-pete_organic$text <-  gsub("fitn", "", pete_organic$text) 
-pete_organic$text <-  gsub("can't", "", pete_organic$text) 
-
-
-custom_list <- c("hshire", "im", "ive", "it's", "chip", "you're", "we're", "fitn", "can't")
+custom_list <- c("caign", "hshire", "im", "ive", "it's", "chip", "you're", "we're", "fitn", "can't")
 custom_df <- tibble(joinColumn = custom_list)
 
 
@@ -256,7 +237,6 @@ bernie_cleaned <- bernie_cleaned %>%
 bernie_cleaned <- bernie_cleaned %>%
   anti_join(custom_df,
             by = c("word" = "joinColumn"))
-
 
 
 warren_cleaned <- warren_organic %>%
@@ -287,6 +267,11 @@ biden_cleaned <- biden_organic %>%
 
 biden_cleaned <- biden_cleaned %>%
   anti_join(stop_words)
+
+biden_cleaned <- biden_cleaned %>%
+  anti_join(custom_df,
+            by = c("word" = "joinColumn"))
+
 
 
 # Showing the most frequent words ---------------------------------------------------------------------
@@ -331,6 +316,19 @@ pete_cleaned %>%
   labs (x = "Count",
         y = "Unique words",
         title = "Unique word counts found in tweets made by Pete Buttigieg")
+
+biden_cleaned %>% 
+  count(word, sort = TRUE) %>% 
+  top_n(20) %>% 
+  mutate(word = reorder(word, n)) %>% 
+  ggplot(aes(x = word, y = n)) +
+  geom_col () +
+  xlab(NULL) +
+  coord_flip () + 
+  theme_classic() +
+  labs (x = "Count",
+        y = "Unique words",
+        title = "Unique word counts found in tweets made by Joe Biden")
 
 
 
