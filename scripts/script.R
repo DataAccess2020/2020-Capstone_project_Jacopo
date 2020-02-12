@@ -6,6 +6,7 @@ install.packages("tidytext")
 install.packages("wordcloud")
 install.packages("tm")
 install.packages("syuzhet")
+install.packages("qdap")
 
 
 library(dplyr)
@@ -17,6 +18,7 @@ library(tidytext)
 library(wordcloud)
 library(tm)
 library(syuzhet)
+library(qdap)
 
 
 # Downloading the tweets -----------------------------------------------------------------------------------
@@ -181,7 +183,7 @@ ggplot(biden_data, aes(ymax=ymax, ymin=ymin, xmax=4, xmin=3, fill=Type_of_Tweet_
 
 
 
-# Cleaning the text ----------------------------------------------------------------------------------------
+# Text pre-processing  -------------------------------------------------------------------------------
 
 # Removing http elements 
 bernie_organic$text <-  gsub("https\\S*", "", bernie_organic$text)
@@ -230,7 +232,7 @@ warren_organic$text <-  gsub("i'm", "", warren_organic$text)
 
 # I can't manage to remove these two
 
-pete_organic$text <-  gsub("hshire", "", pete_organic$text) 
+pete_organic$text <-  gsub("hshire", " ", pete_organic$text) 
 pete_organic$text <-  gsub("it's", "", pete_organic$text) 
 pete_organic$text <-  gsub("chip", "", pete_organic$text) 
 pete_organic$text <-  gsub("you're", "", pete_organic$text) 
@@ -238,12 +240,9 @@ pete_organic$text <-  gsub("we're", "", pete_organic$text)
 pete_organic$text <-  gsub("fitn", "", pete_organic$text) 
 pete_organic$text <-  gsub("can't", "", pete_organic$text) 
 
-# Didn't manage to remove any of these except for "chip"
 
-# Removing "hshire"
-bernie_organic$text <-  gsub("hshire", "", bernie_organic$text)
-
-# Somehow, I can't manage to remove these hshire elements
+custom_list <- c("hshire", "im", "ive", "it's", "chip", "you're", "we're", "fitn", "can't")
+custom_df <- tibble(joinColumn = custom_list)
 
 
 # Removing stop words
@@ -254,6 +253,11 @@ bernie_cleaned <- bernie_organic %>%
 bernie_cleaned <- bernie_cleaned %>%
   anti_join(stop_words)
 
+bernie_cleaned <- bernie_cleaned %>%
+  anti_join(custom_df,
+            by = c("word" = "joinColumn"))
+
+
 
 warren_cleaned <- warren_organic %>%
   select(text) %>%
@@ -262,12 +266,20 @@ warren_cleaned <- warren_organic %>%
 warren_cleaned <- warren_cleaned %>%
   anti_join(stop_words)
 
+warren_cleaned <- warren_cleaned %>%
+  anti_join(custom_df,
+            by = c("word" = "joinColumn"))
+
 pete_cleaned <- pete_organic %>%
   select(text) %>%
   unnest_tokens(word, text)
 
 pete_cleaned <- pete_cleaned %>%
   anti_join(stop_words)
+
+pete_cleaned <- pete_cleaned %>%
+  anti_join(custom_df,
+            by = c("word" = "joinColumn"))
 
 biden_cleaned <- biden_organic %>%
   select(text) %>%
