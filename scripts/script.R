@@ -6,7 +6,6 @@ install.packages("tidytext")
 install.packages("wordcloud")
 install.packages("tm")
 install.packages("syuzhet")
-install.packages("qdap")
 
 
 library(dplyr)
@@ -18,7 +17,6 @@ library(tidytext)
 library(wordcloud)
 library(tm)
 library(syuzhet)
-library(qdap)
 
 
 # Downloading the tweets -----------------------------------------------------------------------------------
@@ -222,7 +220,7 @@ biden_organic$text <-  gsub("[[:punct:]]", "", biden_organic$text)
 
 # Words I'm adding as stop words 
 
-custom_list <- c("caign", "hshire", "im", "ive", "it's", "chip", "you're", "we're", "fitn", "can't")
+custom_list <- c("caign", "hshire", "im", "i'm", "ive", "it's", "chip", "you're", "we're", "fitn", "can't")
 custom_df <- tibble(joinColumn = custom_list)
 
 
@@ -349,23 +347,88 @@ wordcloud(bernie_organic$hashtags, random.order=FALSE,
 
 # Performing a sentiment analysis of the tweets -------------------------------------------------------
 
+# Sentiment analysis for Bernie Sanders 
+
 # Converting tweets to ASCII 
 bernie_cleaned <- iconv(bernie_cleaned, from="UTF-8", to="ASCII", sub="")
 
 
 bernie_sentiment <- get_nrc_sentiment((bernie_cleaned))
-sentimentscores <- data.frame(colSums(bernie_sentiment[,]))
+sentimentscores_bernie <- data.frame(colSums(bernie_sentiment[,]))
 
-names(sentimentscores) <- "Score"
+names(sentimentscores_bernie) <- "Score"
 
-sentimentscores <- cbind("sentiment"=rownames(sentimentscores),sentimentscores)
+sentimentscores_bernie <- cbind("sentiment"=rownames(sentimentscores_bernie),sentimentscores_bernie)
 
-rownames(sentimentscores) <- NULL
+rownames(sentimentscores_bernie) <- NULL
 
-ggplot(data=sentimentscores,aes(x=sentiment,y=Score))+
+ggplot(data=sentimentscores_bernie,aes(x=sentiment,y=Score))+
   geom_bar(aes(fill=sentiment),stat = "identity")+
   theme(legend.position="none")+
   xlab("Sentiments")+ylab("Scores")+
-  ggtitle("Total sentiment based on scores")+
+  ggtitle("Total sentiment based on scores (Bernie Sanders)")+
   theme_minimal()
+
+# Sentiment analysis for Elizabeth Warren
+
+warren_cleaned <- iconv(warren_cleaned, from="UTF-8", to="ASCII", sub="")
+
+warren_sentiment <- get_nrc_sentiment((warren_cleaned))
+sentimentscores_warren <- data.frame(colSums(warren_sentiment[,]))
+
+names(sentimentscores_warren) <- "Score"
+
+sentimentscores_warren <- cbind("sentiment"=rownames(sentimentscores_warren),sentimentscores_warren)
+
+rownames(sentimentscores_warren) <- NULL
+
+ggplot(data=sentimentscores_warren,aes(x=sentiment,y=Score))+
+  geom_bar(aes(fill=sentiment),stat = "identity")+
+  theme(legend.position="none")+
+  xlab("Sentiments")+ylab("Scores")+
+  ggtitle("Total sentiment based on scores (Elizabeth Warren)")+
+  theme_minimal()
+
+# Sentiment analysis for Pete Buttigieg
+
+pete_cleaned <- iconv(pete_cleaned, from="UTF-8", to="ASCII", sub="")
+
+pete_sentiment <- get_nrc_sentiment((pete_cleaned))
+sentimentscores_pete <- data.frame(colSums(pete_sentiment[,]))
+
+names(sentimentscores_pete) <- "Score"
+
+sentimentscores_pete <- cbind("sentiment"=rownames(sentimentscores_pete),sentimentscores_pete)
+
+rownames(sentimentscores_pete) <- NULL
+
+ggplot(data=sentimentscores_pete,aes(x=sentiment,y=Score))+
+  geom_bar(aes(fill=sentiment),stat = "identity")+
+  theme(legend.position="none")+
+  xlab("Sentiments")+ylab("Scores")+
+  ggtitle("Total sentiment based on scores (Pete Buttigieg)")+
+  theme_minimal()
+
+
+# Sentiment analysis for Joe Biden
+
+biden_cleaned <- iconv(biden_cleaned, from="UTF-8", to="ASCII", sub="")
+
+biden_sentiment <- get_nrc_sentiment((biden_cleaned))
+sentimentscores_biden <- data.frame(colSums(biden_sentiment[,]))
+
+names(sentimentscores_biden) <- "Score"
+
+sentimentscores_biden <- cbind("sentiment"=rownames(sentimentscores_biden),sentimentscores_biden)
+
+rownames(sentimentscores_biden) <- NULL
+
+ggplot(data=sentimentscores_biden,aes(x=sentiment,y=Score))+
+  geom_bar(aes(fill=sentiment),stat = "identity")+
+  theme(legend.position="none")+
+  xlab("Sentiments")+ylab("Scores")+
+  ggtitle("Total sentiment based on scores (Pete Buttigieg)")+
+  theme_minimal()
+
+
 
