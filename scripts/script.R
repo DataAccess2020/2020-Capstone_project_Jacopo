@@ -73,12 +73,17 @@ warren_organic <- warren[warren$is_retweet==FALSE, ]
 pete_organic <- pete[pete$is_retweet==FALSE, ] 
 biden_organic <- biden[biden$is_retweet==FALSE, ] 
 
+tweets_organic <- tweets[tweets$is_retweet==FALSE, ] 
+
+
 
 # Removing replies
 bernie_organic <- subset(bernie_organic, is.na(bernie_organic$reply_to_status_id)) 
 warren_organic <- subset(warren_organic, is.na(warren_organic$reply_to_status_id)) 
 pete_organic <- subset(pete_organic, is.na(pete_organic$reply_to_status_id)) 
 biden_organic <- subset(biden_organic, is.na(biden_organic$reply_to_status_id)) 
+
+tweets_organic <- subset(tweets_organic, is.na(tweets_organic$reply_to_status_id)) 
 
 
 # Showing the ratio of replies/retweets/organic tweets -----------------------------------------------------------
@@ -89,12 +94,15 @@ warren_retweets <- warren[warren$is_retweet==TRUE,]
 pete_retweets <- pete[pete$is_retweet==TRUE,]
 biden_retweets <- biden[biden$is_retweet==TRUE,]
 
+retweets <- tweets[tweets$is_retweet==TRUE,]
 
 # Keeping only the replies
 bernie_replies <- subset(bernie, !is.na(bernie$reply_to_status_id))
 warren_replies <- subset(warren, !is.na(warren$reply_to_status_id))
 pete_replies <- subset(pete, !is.na(pete$reply_to_status_id))
 biden_replies <- subset(biden, !is.na(biden$reply_to_status_id))
+
+replies <- subset(tweets, !is.na(tweets$reply_to_status_id))
 
 
 # Creating a data frame containing the distribution of organic tweets, retweets, and replies
