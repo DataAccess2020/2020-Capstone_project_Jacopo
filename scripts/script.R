@@ -126,6 +126,16 @@ biden_data <- data.frame(
   count=c(95, 5, 0)
 )
 
+tweets_data <- data.frame(
+  category=c("organic tweets", "retweets", "replies"),
+  total=c(95, 5, 0),
+  bernie_sanders=c(),
+  elizabeth_warren=c(),
+  pete_buttigieg=c(),
+  joe_biden=c()
+)
+
+
 
 # Visualising the distribution of organic tweets, retweets, and replies for Bernie Sanders
 
@@ -214,12 +224,15 @@ warren_organic$text <-  gsub("https\\S*", "", warren_organic$text)
 pete_organic$text <-  gsub("https\\S*", "", pete_organic$text)
 biden_organic$text <-  gsub("https\\S*", "", biden_organic$text)
 
+tweets_organic$text <-  gsub("https\\S*", "", tweets_organic$text)
 
 # Removing @ mentions 
 bernie_organic$text <-  gsub("@\\S*", "", bernie_organic$text) 
 warren_organic$text <-  gsub("@\\S*", "", warren_organic$text) 
 pete_organic$text <-  gsub("@\\S*", "", pete_organic$text) 
 biden_organic$text <-  gsub("@\\S*", "", biden_organic$text) 
+
+tweets_organic$text <-  gsub("@\\S*", "", tweets_organic$text) 
 
 
 # Removing "amp"
@@ -228,6 +241,9 @@ warren_organic$text <-  gsub("amp", "", warren_organic$text)
 pete_organic$text <-  gsub("amp", "", pete_organic$text) 
 biden_organic$text <-  gsub("amp", "", biden_organic$text) 
 
+tweets_organic$text <-  gsub("amp", "", tweets_organic$text) 
+
+
 
 # Removing "[\r\n]"
 bernie_organic$text <-  gsub("[\r\n]", "", bernie_organic$text)
@@ -235,12 +251,18 @@ warren_organic$text <-  gsub("[\r\n]", "", warren_organic$text)
 pete_organic$text <-  gsub("[\r\n]", "", pete_organic$text)
 biden_organic$text <-  gsub("[\r\n]", "", biden_organic$text)
 
+tweets_organic$text <-  gsub("[\r\n]", "", tweets_organic$text)
+
+
 
 # Removing punctuation 
 bernie_organic$text <-  gsub("[[:punct:]]", "", bernie_organic$text)
 warren_organic$text <-  gsub("[[:punct:]]", "", warren_organic$text)
 pete_organic$text <-  gsub("[[:punct:]]", "", pete_organic$text)
 biden_organic$text <-  gsub("[[:punct:]]", "", biden_organic$text)
+
+tweets_organic$text <-  gsub("[[:punct:]]", "", tweets_organic$text)
+
 
 
 # Words I'm adding as stop words 
@@ -296,8 +318,34 @@ biden_cleaned <- biden_cleaned %>%
             by = c("word" = "joinColumn"))
 
 
+tweets_cleaned <- tweets_organic %>%
+  select(text) %>%
+  unnest_tokens(word, text)
+
+tweets_cleaned <- tweets_cleaned %>%
+  anti_join(stop_words)
+
+tweets_cleaned <- tweets_cleaned %>%
+  anti_join(custom_df,
+            by = c("word" = "joinColumn"))
+
+
+
 
 # Showing the most frequent words ---------------------------------------------------------------------
+
+tweets_cleaned %>% 
+  count(word, sort = TRUE) %>% 
+  top_n(20) %>% 
+  mutate(word = reorder(word, n)) %>% 
+  ggplot(aes(x = word, y = n)) +
+  geom_col () +
+  xlab(NULL) +
+  coord_flip () + 
+  theme_classic() +
+  labs (x = "Count",
+        y = "Unique words",
+        title = "Unique word counts found in tweets made by the four candidates")
 
 
 bernie_cleaned %>% 
@@ -352,7 +400,6 @@ biden_cleaned %>%
   labs (x = "Count",
         y = "Unique words",
         title = "Unique word counts found in tweets made by Joe Biden")
-
 
 
 # Showing the most frequent hashtags -----------------------------------------------------------------
