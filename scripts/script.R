@@ -46,7 +46,24 @@ biden <- get_timelines(
   "JoeBiden",
   n = 100)
 
+# Downloading the 100 most recent tweets of all the four candidates at once 
 
+tweets <- get_timelines(c("JoeBiden", "PeteButtigieg", "ewarren", "BernieSanders"), n = 100)
+
+
+descriptive_statistics <- tweets %>% 
+  mutate(candidate = ifelse(tweets$user_id == 216776631, "Bernie Sanders",
+                            ifelse(tweets$user_id == 226222147, "Pete Buttigieg",
+                                   ifelse(tweets$user_id == 357606935, "Elizabeth Warren",
+                                          ifelse(tweets$user_id == 939091, "Joe Biden",
+                                                 "None"))))) %>% 
+  group_by(candidate) %>% 
+  summarize (average_retweet = mean(retweet_count, na.rm = T),
+             average_favorite = mean(favorite_count, na.rm = T)) %>% 
+  arrange(desc(average_retweet))
+
+
+  
 
 # Cleaning up the tweets -------------------------------------------------------------------------------------
 
