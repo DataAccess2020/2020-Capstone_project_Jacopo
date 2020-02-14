@@ -14,15 +14,15 @@ You are reading Jacopo Malatesta's capstone project for the Data Access and Regu
 
 The following is a list of packages needed for this project.
 
-```
+```r
 install.packages("rtweet")
 ```
 
-```
+```r
 install.packages("tidytext")
 ```
 
-```
+```r
 install.packages("syuzhet")
 ```
 
