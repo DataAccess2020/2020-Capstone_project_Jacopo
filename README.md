@@ -2,9 +2,20 @@
 
 # 2020 Democratic Party presidential primaries: text and sentiment analysis
 
+<p align="center">
+  <a href="#about">About</a> •
+  <a href="#goals">Goals</a> •
+  <a href="#prerequisites">Prerequisites</a> •
+  <a href="#folders">Folder Structure</a> •
+  <a href="#author">Author</a> 
+</p>
+
+
+
+## About
 You are reading Jacopo Malatesta's capstone project for the Data Access and Regulation course of the Data Analytics for Politics, Society and Complex Organizations master program, University of Milan.
 
-## Goals of the project
+## Goals
 
 1. Scraping twitter data both about and by the four main Democratic candidates: Bernie Sanders, Elizabeth Warren, Pete Buttigieg, and Joe Biden.
 1. Performing some basic text analysis.
@@ -26,7 +37,7 @@ install.packages("tidytext")
 install.packages("syuzhet")
 ```
 
-## Folder structure 
+## Folders 
 
 Folder name | Content
 ------------ | -------------
@@ -35,7 +46,7 @@ output | Scraped tweets
 report | Final R Markdown report
 src | R scripts
 
-## Authors
+## Author
 
 * **Jacopo Malatesta** - [My GitHub profile](https://github.com/JacopoMalatesta)
 
