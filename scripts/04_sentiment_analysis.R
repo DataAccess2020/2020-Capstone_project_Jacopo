@@ -1,4 +1,4 @@
-source(here::here("scripts","03_text_pre_processing.R"))
+source(here::here("scripts","03_text_analysis.R"))
 
 # Loading the packages
 
