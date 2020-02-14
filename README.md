@@ -2,6 +2,8 @@
 
 # 2020 Democratic Party presidential primaries: text and sentiment analysis
 
+
+
 <p align="center">
   <a href="#about">About</a> •
   <a href="#goals">Goals</a> •
@@ -9,6 +11,7 @@
   <a href="#folders">Folder Structure</a> •
   <a href="#author">Author</a> 
 </p>
+
 
 
 
