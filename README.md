@@ -1,7 +1,6 @@
 <img src="https://raw.githubusercontent.com/JacopoMalatesta/awesome-readme/master/icon.png" align="right" />
 
-# 2020 Democratic Party presidential primaries: 
-text and sentiment analysis
+# 2020 Democratic Party presidential primaries:       text and sentiment analysis
 
 
 
