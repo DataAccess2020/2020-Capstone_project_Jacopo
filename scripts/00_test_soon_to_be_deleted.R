@@ -19,6 +19,14 @@ library(tm)
 library(syuzhet)
 
 
+bernie3 <- search_tweets(
+  q = "bernie",
+  include_rts = FALSE,
+  since="2020-02-9", until="2020-02-10",
+  n = 100
+)
+
+
 # Downloading the tweets -----------------------------------------------------------------------------------
 
 
@@ -27,6 +35,10 @@ library(syuzhet)
 bernie <- get_timelines(
   "BernieSanders",
   n = 100)
+
+save_as_csv(bernie, file="output/bernie.csv", prepend_ids = TRUE, na = "", fileEncoding = "UTF-8")
+
+import("")
 
 # Downloading the 100 most recent Elizabeth Warren's tweets
 
@@ -51,6 +63,8 @@ biden <- get_timelines(
 tweets <- get_timelines(c("JoeBiden", "PeteButtigieg", "ewarren", "BernieSanders"), n = 100)
 
 
+# Providing some descriptive statistics ---------------------------------------------------
+
 descriptive_statistics <- tweets %>% 
   mutate(candidate = ifelse(tweets$user_id == 216776631, "Bernie Sanders",
                             ifelse(tweets$user_id == 226222147, "Pete Buttigieg",
@@ -63,7 +77,6 @@ descriptive_statistics <- tweets %>%
   arrange(desc(average_retweet))
 
 
-  
 
 # Cleaning up the tweets -------------------------------------------------------------------------------------
 
