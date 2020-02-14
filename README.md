@@ -7,8 +7,8 @@ You are reading Jacopo Malatesta's capstone project for the Data Access and Regu
 ## Goals of the project
 
 1. Scraping twitter data both about and by the four main Democratic candidates: Bernie Sanders, Elizabeth Warren, Pete Buttigieg, and Joe Biden.
-2. Performing some basic text analysis.
-3. Performing some basic sentiment analysis.
+1. Performing some basic text analysis.
+1. Performing some basic sentiment analysis.
 
 ## Prerequisites
 
