@@ -16,7 +16,24 @@
 
 
 ## About
+
+<table>
+<tr>
+<td>
+
 You are reading Jacopo Malatesta's capstone project for the Data Access and Regulation course of the Data Analytics for Politics, Society and Complex Organizations master program, University of Milan.
+
+![A screenshot of one of the scripts](screenshot.png)
+<p align="right">
+<sub>(Preview)</sub>
+</p>
+
+
+</td>
+</tr>
+</table>
+
+
 
 ## Goals
 
