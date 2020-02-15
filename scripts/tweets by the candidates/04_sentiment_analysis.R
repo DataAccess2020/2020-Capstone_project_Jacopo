@@ -1,4 +1,4 @@
-source(here::here("scripts","03_text_analysis.R"))
+source(here::here("scripts/tweets by the candidates","03_text_analysis.R"))
 
 # Sentiment analysis for Bernie Sanders 
 

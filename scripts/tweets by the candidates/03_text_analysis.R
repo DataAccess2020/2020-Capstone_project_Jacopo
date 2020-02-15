@@ -1,4 +1,4 @@
-source(here::here("scripts","02_descriptive_statistics.R"))
+source(here::here("scripts/tweets by the candidates","02_descriptive_statistics.R"))
 
 
 # Removing retweets
