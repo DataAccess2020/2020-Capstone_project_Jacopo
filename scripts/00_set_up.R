@@ -1,0 +1,6 @@
+library(dplyr)
+library(rtweet)
+library(rio)
+library(tidytext)
+library(ggplot2)
+library(syuzhet)

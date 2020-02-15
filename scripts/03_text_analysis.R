@@ -1,9 +1,5 @@
 source(here::here("scripts","02_descriptive_statistics.R"))
 
-# Loading the packages
-
-library(tidytext)
-library(ggplot2)
 
 # Removing retweets
 bernie_organic <- bernie[bernie$is_retweet==FALSE, ] 

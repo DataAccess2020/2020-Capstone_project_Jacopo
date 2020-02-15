@@ -1,10 +1,5 @@
 source(here::here("scripts","01_scraping.R"))
 
-# Loading the packages
-
-library(dplyr)
-
-
 
 # Computing the average for retweets and favorites for each of the candidate 
 

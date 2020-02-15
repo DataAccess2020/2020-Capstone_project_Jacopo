@@ -1,10 +1,5 @@
 source(here::here("scripts","03_text_analysis.R"))
 
-# Loading the packages
-
-library(syuzhet)
-
-
 # Sentiment analysis for Bernie Sanders 
 
 # Converting tweets to ASCII 

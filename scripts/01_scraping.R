@@ -1,7 +1,5 @@
-# Loading the packages
+source(here::here("scripts","00_set_up.R"))
 
-library(rtweet)
-library(rio)
 
 # Downloading the 100 most recent Bernie Sanders's tweets
 
