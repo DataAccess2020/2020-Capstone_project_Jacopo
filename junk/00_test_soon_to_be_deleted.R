@@ -516,4 +516,82 @@ ggplot(data=sentimentscores_biden,aes(x=sentiment,y=Score))+
   theme_minimal()
 
 
+#
+
+prova <- search_tweets(
+  "buttigieg",
+  n = 1000,
+  lang = "en",
+  since="2020-01-01", until="2020-02-14"
+)
+
+save(prova, file = "junk/prova.Rdata")
+prova <- import("junk/prova.Rdata")
+
+# Removing http elements 
+prova$text <-  gsub("https\\S*", "", prova$text)
+
+
+# Removing @ mentions 
+prova$text <-  gsub("@\\S*", "", prova$text) 
+
+# Removing "amp"
+prova$text <-  gsub("amp", "", prova$text) 
+
+# Removing "[\r\n]"
+prova$text <-  gsub("[\r\n]", "", prova$text)
+
+# Removing punctuation 
+prova$text <-  gsub("[[:punct:]]", "", prova$text)
+
+# Removing digits
+prova$text <- gsub("\\d", "", prova$text)
+
+
+# Selecting the English stop words from the stopworldslangs dataset
+
+stop_words_langs <- stopwordslangs %>% 
+  filter(lang=="en") %>% 
+  select(word)
+
+# Creating a vector containing some additional stop words 
+
+more_stop_words <- c("heres", "ia", "à", "bernies", "bros", "couldnt", "youll", "bernie&#39;'s", "exle", "m4a", "hasnt","dont", "ve", "II", "Il", "ll", "lI", "â","iâ", "weâ", "canâ", "itâ", "caign", "caigns", "hshire", "im", "i'm", "ive", "it's", "chip", "you're", "we're", "fitn", "can't")
+
+# Turning the vector into a tibble 
+
+more_stop_words_df <- tibble(joinColumn = more_stop_words)
+
+# Removing the stopwords from the tweets about Bernie
+
+prova_cleaned <- prova %>%
+  select(text) %>%
+  unnest_tokens(word, text)
+
+prova_cleaned <- prova_cleaned %>%
+  anti_join(stop_words_langs,
+            by = "word")
+
+prova_cleaned <- prova_cleaned %>%
+  anti_join(more_stop_words_df,
+            by = c("word" = "joinColumn"))
+
+# Visualization -------------------------------------------------------------------------------------
+
+prova_cleaned %>% 
+  count(word, sort = TRUE) %>% 
+  top_n(50) %>% 
+  mutate(word = reorder(word, n)) %>% 
+  ggplot(aes(x = word, y = n)) +
+  geom_col () +
+  xlab(NULL) +
+  coord_flip () + 
+  theme_classic() +
+  labs (x = "Count",
+        y = "Unique words",
+        title = "Top 50 unique word counts found in tweets made about Bernie Sanders")
+
+library(tm)
+
+removeNumbers(prova)
 

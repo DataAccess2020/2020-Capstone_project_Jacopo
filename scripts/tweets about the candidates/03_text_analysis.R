@@ -42,6 +42,10 @@ about_warren$text <-  gsub("[[:punct:]]", "", about_warren$text)
 about_pete$text <-  gsub("[[:punct:]]", "", about_pete$text)
 about_biden$text <-  gsub("[[:punct:]]", "", about_biden$text)
 
+# Removing digits Due to some weird problem with the Buttigieg dataset
+about_pete$text <- gsub("\\d", "", about_pete$text)
+
+
 
 # Selecting the English stop words from the stopworldslangs dataset
 
@@ -99,6 +103,7 @@ about_pete_cleaned <- about_pete_cleaned %>%
 about_pete_cleaned <- about_pete_cleaned %>%
   anti_join(more_stop_words_df,
             by = c("word" = "joinColumn"))
+
 
 
 # Removing the stopwords from the tweets about Biden
