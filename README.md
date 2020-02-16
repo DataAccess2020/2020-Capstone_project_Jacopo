@@ -1,7 +1,5 @@
-<img src="https://dapsco.unimi.it/wp-content/uploads/2019/01/cropped-dapsampco-5.jpg" align="center" />
+![Logo of my Master Program](images/cropped-dapsampco-5.jpg)
 
-
-<img src="https://raw.githubusercontent.com/JacopoMalatesta/awesome-readme/master/icon.png" align="right" />
 
 
 
