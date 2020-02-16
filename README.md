@@ -21,7 +21,7 @@
 <tr>
 <td>
 
-You are reading Jacopo Malatesta's capstone project for the Data Access and Regulation course of the Data Analytics for Politics, Society and Complex Organizations master program, University of Milan.
+You are reading Jacopo Malatesta's capstone project for the Data Access and Regulation course of the Data Analytics for Politics, Society and Complex Organizations Master program, University of Milan. This small research aims to gain insights into the content of tweets regarding the 2020 Democratic Party presidential primaries. In order to do so, Twitter data, including both tweets about the candidates and tweets by the candidates, have been scraped and analyzed through basic text analysis and sentimental analysis tools. 
 
 ![A screenshot of one of the scripts](screenshot.png)
 <p align="right">
@@ -32,14 +32,6 @@ You are reading Jacopo Malatesta's capstone project for the Data Access and Regu
 </td>
 </tr>
 </table>
-
-
-
-## Goals
-
-1. Scraping twitter data both about and by the four main Democratic candidates: Bernie Sanders, Elizabeth Warren, Pete Buttigieg, and Joe Biden.
-1. Performing some basic text analysis.
-1. Performing some basic sentiment analysis.
 
 ## Prerequisites
 
