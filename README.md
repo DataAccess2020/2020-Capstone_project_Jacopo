@@ -1,3 +1,6 @@
+<img src="https://dapsco.unimi.it/wp-content/uploads/2019/01/cropped-dapsampco-5.jpg" align="center" />
+
+
 <img src="https://raw.githubusercontent.com/JacopoMalatesta/awesome-readme/master/icon.png" align="right" />
 
 # 2020 Democratic Party presidential primaries:       text and sentiment analysis
