@@ -1,6 +1,6 @@
 ![Logo of my Master Program](images/cropped-dapsampco-5.jpg)
 
-
+<img src="https://github.com/JacopoMalatesta/awesome-readme/blob/master/icon.png" align="right" />
 
 
 # 2020 Democratic Party presidential primaries:       text and sentiment analysis
