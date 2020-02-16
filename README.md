@@ -56,6 +56,7 @@ install.packages("syuzhet")
 
 Folder name | Content
 ------------ | -------------
+images | Images used in the read_me file
 junk | Tests 
 output | Scraped tweets 
 report | Final R Markdown report
