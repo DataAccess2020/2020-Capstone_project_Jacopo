@@ -42,5 +42,25 @@ ggplot(data=about_warren_sentimentscores,aes(x=sentiment,y=Score))+
   ggtitle("Total sentiment based on scores (Elizabeth Warren)")+
   theme_minimal()
 
+# Tweets about Pete Buttigieg ------------------------------------------------------------
+
+about_pete_cleaned <- iconv(about_pete_cleaned, from="UTF-8", to="ASCII", sub="")
+
+about_pete_sentiment <- get_nrc_sentiment((about_pete_cleaned))
+about_pete_sentimentscores <- data.frame(colSums(about_pete_sentiment[,]))
+
+names(about_pete_sentimentscores) <- "Score"
+
+about_pete_sentimentscores <- cbind("sentiment"=rownames(about_pete_sentimentscores),about_pete_sentimentscores)
+
+rownames(about_pete_sentimentscores) <- NULL
+
+ggplot(data=about_pete_sentimentscores,aes(x=sentiment,y=Score))+
+  geom_bar(aes(fill=sentiment),stat = "identity")+
+  theme(legend.position="none")+
+  xlab("Sentiments")+ylab("Scores")+
+  ggtitle("Total sentiment based on scores (Pete Buttigieg)")+
+  theme_minimal()
+
 
 
