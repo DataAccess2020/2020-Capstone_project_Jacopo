@@ -60,6 +60,7 @@ save(q_warren, file="output/q_warren.rdata")
 q_buttigieg <- search_tweets(
   "buttigieg",
   include_rts = FALSE,
+  lang = "en",
   since="2020-01-01", until="2020-02-14",
   n = 100000,
   retryonratelimit = TRUE 
@@ -71,6 +72,7 @@ save(q_buttigieg, file="output/q_buttigieg.rdata")
 q_biden <- search_tweets(
   "biden",
   include_rts = FALSE,
+  lang = "en",
   since="2020-01-01", until="2020-02-14",
   n = 100000,
   retryonratelimit = TRUE 

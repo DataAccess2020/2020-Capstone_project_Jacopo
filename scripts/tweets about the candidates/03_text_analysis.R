@@ -2,7 +2,7 @@
 
 about_bernie <- import("output/q_bernie.Rdata")
 about_warren <- import("output/q_warren.Rdata")
-about_pete <- import("output/q_pete.Rdata")
+about_pete <- import("output/q_buttigieg.Rdata")
 about_biden <- import("output/q_biden.Rdata")
 
 
@@ -43,27 +43,19 @@ about_pete$text <-  gsub("[[:punct:]]", "", about_pete$text)
 about_biden$text <-  gsub("[[:punct:]]", "", about_biden$text)
 
 
-# Words I'm adding as stop words 
-
-custom_list <- c("dont", "aapi2020", "ve", "II", "Il", "ll", "lI", "â","iâ", "weâ", "canâ", "itâ", "caign", "hshire", "im", "i'm", "ive", "it's", "chip", "you're", "we're", "fitn", "can't")
-custom_df <- tibble(joinColumn = custom_list)
-
-
-# /////////////////////// NUOVO TENTATIVO ////////////////////////////////////////////////
-
-# Selecting the English stopwords from the stopworldslangs dataset
+# Selecting the English stop words from the stopworldslangs dataset
 
 stop_words_langs <- stopwordslangs %>% 
   filter(lang=="en") %>% 
   select(word)
 
-# Creating a custom list with some additional stop words and storing it into a vector
+# Creating a vector containing some additional stop words 
 
-custom_list <- c("heres", "bernie", "bernies", "bros", "couldnt", "youll", "bernie&#39;'s", "exle", "m4a", "hasnt","dont", "ve", "II", "Il", "ll", "lI", "â","iâ", "weâ", "canâ", "itâ", "caign", "caigns", "hshire", "im", "i'm", "ive", "it's", "chip", "you're", "we're", "fitn", "can't")
+more_stop_words <- c("heres", "ia", "à", "bernies", "bros", "couldnt", "youll", "bernie&#39;'s", "exle", "m4a", "hasnt","dont", "ve", "II", "Il", "ll", "lI", "â","iâ", "weâ", "canâ", "itâ", "caign", "caigns", "hshire", "im", "i'm", "ive", "it's", "chip", "you're", "we're", "fitn", "can't")
 
 # Turning the vector into a tibble 
 
-custom_df <- tibble(joinColumn = custom_list)
+more_stop_words_df <- tibble(joinColumn = more_stop_words)
 
 # Removing the stopwords from the tweets about Bernie
 
@@ -76,7 +68,7 @@ about_bernie_cleaned <- about_bernie_cleaned %>%
             by = "word")
 
 about_bernie_cleaned <- about_bernie_cleaned %>%
-  anti_join(custom_df,
+  anti_join(more_stop_words_df,
             by = c("word" = "joinColumn"))
 
 # Removing the stopwords from the tweets about Warren
@@ -90,12 +82,11 @@ about_warren_cleaned <- about_warren_cleaned %>%
             by = "word")
 
 about_warren_cleaned <- about_warren_cleaned %>%
-  anti_join(custom_df,
+  anti_join(more_stop_words_df,
             by = c("word" = "joinColumn"))
 
 
 # Removing the stopwords from the tweets about Buttigieg
-
 
 about_pete_cleaned <- about_pete %>%
   select(text) %>%
@@ -106,7 +97,7 @@ about_pete_cleaned <- about_pete_cleaned %>%
             by = "word")
 
 about_pete_cleaned <- about_pete_cleaned %>%
-  anti_join(custom_df,
+  anti_join(more_stop_words_df,
             by = c("word" = "joinColumn"))
 
 
@@ -123,8 +114,6 @@ about_biden_cleaned <- about_biden_cleaned %>%
 about_biden_cleaned <- about_biden_cleaned %>%
   anti_join(custom_df,
             by = c("word" = "joinColumn"))
-
-
 
 
 

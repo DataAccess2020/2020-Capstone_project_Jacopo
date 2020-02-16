@@ -132,6 +132,10 @@ tweets_cleaned %>%
         y = "Unique words",
         title = "Unique word counts found in tweets made by the four candidates")
 
+
+# --------------------------------------------------------------------------------------------------
+
+
 bernie_cleaned %>% 
   count(word, sort = TRUE) %>% 
   top_n(20) %>% 
