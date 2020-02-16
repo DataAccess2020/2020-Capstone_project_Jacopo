@@ -21,7 +21,7 @@
 <tr>
 <td>
 
-You are reading Jacopo Malatesta's capstone project for the Data Access and Regulation course of the Data Analytics for Politics, Society and Complex Organizations Master program, University of Milan. This small research aims to gain insights into the content of tweets regarding the 2020 Democratic Party presidential primaries. In order to do so, Twitter data, including both tweets about the candidates and tweets by the candidates, have been scraped and analyzed through basic text analysis and sentimental analysis tools. 
+You are reading Jacopo Malatesta's capstone project for the <i>Data Access and Regulation</i> course of the Data Analytics for Politics, Society and Complex Organizations Master program (University of Milan). This small research aims at gaining insight into the Twitter content regarding the 2020 Democratic Party presidential primaries. In order to achieve this, Twitter data, including both tweets about the candidates and tweets by the candidates, have been scraped and analyzed with basic text analysis and sentimental analysis tools. 
 
 ![A screenshot of one of the scripts](screenshot.png)
 <p align="right">
