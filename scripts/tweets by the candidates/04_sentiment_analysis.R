@@ -1,6 +1,6 @@
 source(here::here("scripts/tweets by the candidates","03_text_analysis.R"))
 
-# Sentiment analysis for Bernie Sanders 
+# Sentiment analysis for Bernie Sanders ----------------------------------------
 
 # Converting tweets to ASCII 
 bernie_cleaned <- iconv(bernie_cleaned, from="UTF-8", to="ASCII", sub="")
@@ -22,7 +22,7 @@ ggplot(data=sentimentscores_bernie,aes(x=sentiment,y=Score))+
   ggtitle("Total sentiment based on scores (Bernie Sanders)")+
   theme_minimal()
 
-# Sentiment analysis for Elizabeth Warren
+# Sentiment analysis for Elizabeth Warren -------------------------------------
 
 warren_cleaned <- iconv(warren_cleaned, from="UTF-8", to="ASCII", sub="")
 
@@ -42,7 +42,7 @@ ggplot(data=sentimentscores_warren,aes(x=sentiment,y=Score))+
   ggtitle("Total sentiment based on scores (Elizabeth Warren)")+
   theme_minimal()
 
-# Sentiment analysis for Pete Buttigieg
+# Sentiment analysis for Pete Buttigieg ---------------------------------------
 
 pete_cleaned <- iconv(pete_cleaned, from="UTF-8", to="ASCII", sub="")
 

@@ -53,6 +53,7 @@ stop_words_langs <- stopwordslangs %>%
   filter(lang=="en") %>% 
   select(word)
 
+
 # Creating a vector containing some additional stop words 
 
 more_stop_words <- c("heres", "ia", "à", "bernies", "bros", "couldnt", "youll", "bernie&#39;'s", "exle", "m4a", "hasnt","dont", "ve", "II", "Il", "ll", "lI", "â","iâ", "weâ", "canâ", "itâ", "caign", "caigns", "hshire", "im", "i'm", "ive", "it's", "chip", "you're", "we're", "fitn", "can't")
