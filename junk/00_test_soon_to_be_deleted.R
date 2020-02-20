@@ -522,7 +522,7 @@ prova <- search_tweets(
   "buttigieg",
   n = 1000,
   lang = "en",
-  since="2020-01-01", until="2020-02-14"
+  since="2020-02-09", until="2020-02-16"
 )
 
 save(prova, file = "junk/prova.Rdata")
@@ -595,3 +595,5 @@ library(tm)
 
 removeNumbers(prova)
 
+---------------------------------------------------------------------------------------
+  

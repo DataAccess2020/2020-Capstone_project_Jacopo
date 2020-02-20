@@ -1,10 +1,7 @@
-# Loading the twitter data
-
-about_bernie <- import("output/q_bernie.Rdata")
-about_warren <- import("output/q_warren.Rdata")
-about_pete <- import("output/q_buttigieg.Rdata")
-about_biden <- import("output/q_biden.Rdata")
-
+about_bernie <- import("output/about_bernie.Rdata")
+about_warren <- import("output/about_warren.Rdata")
+about_pete <- import("output/about_pete.Rdata")
+about_biden <- import("output/about_biden.Rdata")
 
 
 # Text pre-processing  -------------------------------------------------------------------------
@@ -42,9 +39,9 @@ about_warren$text <-  gsub("[[:punct:]]", "", about_warren$text)
 about_pete$text <-  gsub("[[:punct:]]", "", about_pete$text)
 about_biden$text <-  gsub("[[:punct:]]", "", about_biden$text)
 
-# Removing digits Due to some weird problem with the Buttigieg dataset
+# Removing digits 
 about_pete$text <- gsub("\\d", "", about_pete$text)
-
+about_warren$text <- gsub("\\d", "", about_warren$text)
 
 
 # Selecting the English stop words from the stopworldslangs dataset
@@ -118,7 +115,7 @@ about_biden_cleaned <- about_biden_cleaned %>%
             by = "word")
 
 about_biden_cleaned <- about_biden_cleaned %>%
-  anti_join(custom_df,
+  anti_join(more_stop_words_df,
             by = c("word" = "joinColumn"))
 
 
