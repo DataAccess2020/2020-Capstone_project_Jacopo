@@ -13,8 +13,8 @@ descriptive_statistics <- tweets %>%
 # Plotting the frequency
 
 tweets %>%
-  dplyr::filter(created_at > "2020-02-02") %>%
-  dplyr::group_by(screen_name) %>%
+  filter(created_at > "2020-01-01") %>%
+  group_by(screen_name) %>%
   ts_plot("days") +
   geom_point() +
   theme_minimal() +
