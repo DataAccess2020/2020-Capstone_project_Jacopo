@@ -445,4 +445,5 @@ about_biden_day_7 <- import("output/q_biden_day_7.Rdata")
 # Combining the seven dataset
 
 about_biden <- rbind(about_biden_day_1, about_biden_day_2, about_biden_day_3, about_biden_day_4, about_biden_day_5, about_biden_day_6, about_biden_day_7)
+
 save(about_biden, file = "output/about_biden.Rdata")

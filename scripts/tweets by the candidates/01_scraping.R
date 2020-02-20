@@ -1,17 +1,13 @@
 source(here::here("scripts/tweets by the candidates","00_set_up.R"))
 
 
-# Downloading the 1000 most recent Bernie Sanders's tweets
+# Downloading the 1000 most recent Bernie Sanders's tweets, saving them as a .csv file, and importing the dataset
 
 bernie_tweets <- get_timelines(
   "BernieSanders",
   n = 1000)
 
-# Saving them in the output folder 
-
 save_as_csv(bernie_tweets, file="output/by_bernie.csv", prepend_ids = TRUE, na = "", fileEncoding = "UTF-8")
-
-# Importing the dataset
 
 bernie <- import(here::here("output","by_bernie.csv"))
 
@@ -38,7 +34,7 @@ save_as_csv(pete_tweets, file="output/by_pete.csv", prepend_ids = TRUE, na = "",
 pete <- import(here::here("output","by_pete.csv"))
 
 
-# Downloading the 100 most recent Joe Biden's tweets
+# Same thing, this time with Joe Biden's tweets
 
 biden_tweets <- get_timelines(
   "JoeBiden",

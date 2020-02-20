@@ -119,6 +119,8 @@ tweets_cleaned <- tweets_cleaned %>%
 
 # Visualization -------------------------------------------------------------------------------------
 
+# Top 20 most frequent words in tweets by all four candidates combined
+
 tweets_cleaned %>% 
   count(word, sort = TRUE) %>% 
   top_n(20) %>% 
@@ -132,9 +134,7 @@ tweets_cleaned %>%
         y = "Unique words",
         title = "Unique word counts found in tweets made by the four candidates")
 
-
-# --------------------------------------------------------------------------------------------------
-
+# Top 20 most frequent words in Bernie Sanders's tweets
 
 bernie_cleaned %>% 
   count(word, sort = TRUE) %>% 
@@ -149,6 +149,7 @@ bernie_cleaned %>%
         y = "Unique words",
         title = "Unique word counts found in tweets made by Bernie Sanders")
 
+# Top 20 most frequent words in Elizabeth Warren's tweets 
 
 warren_cleaned %>% 
   count(word, sort = TRUE) %>% 
@@ -163,6 +164,8 @@ warren_cleaned %>%
         y = "Unique words",
         title = "Unique word counts found in tweets made by Elizabeth Warren")
 
+# Top 20 most frequent words in Pete Buttigieg's tweets
+
 pete_cleaned %>% 
   count(word, sort = TRUE) %>% 
   top_n(20) %>% 
@@ -175,6 +178,8 @@ pete_cleaned %>%
   labs (x = "Count",
         y = "Unique words",
         title = "Unique word counts found in tweets made by Pete Buttigieg")
+
+# Top 20 most frequent words in Joe Biden's tweets
 
 biden_cleaned %>% 
   count(word, sort = TRUE) %>% 
