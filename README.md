@@ -9,7 +9,6 @@
 
 <p align="center">
   <a href="#about">About</a> •
-  <a href="#goals">Goals</a> •
   <a href="#features">Features</a> •
   <a href="#prerequisites">Prerequisites</a> •
   <a href="#folders">Folder Structure</a> •
