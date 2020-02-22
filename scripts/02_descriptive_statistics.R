@@ -1,4 +1,4 @@
-source(here::here("scripts/tweets by the candidates","01_scraping.R"))
+source(here::here("scripts","01_scraping.R"))
 
 
 # Computing the average for retweets and favorites for each of the candidate 

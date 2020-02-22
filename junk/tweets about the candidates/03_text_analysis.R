@@ -103,7 +103,6 @@ about_pete_cleaned <- about_pete_cleaned %>%
             by = c("word" = "joinColumn"))
 
 
-
 # Removing the stopwords from the tweets about Biden
 
 about_biden_cleaned <- about_biden %>%

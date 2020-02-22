@@ -1,4 +1,4 @@
-source(here::here("scripts/tweets by the candidates","02_descriptive_statistics.R"))
+source(here::here("scripts","02_descriptive_statistics.R"))
 
 
 # Removing retweets
@@ -33,14 +33,12 @@ biden_organic$text <-  gsub("amp", "", biden_organic$text)
 tweets_organic$text <-  gsub("amp", "", tweets_organic$text) 
 
 
-
 # Removing "[\r\n]"
 bernie_organic$text <-  gsub("[\r\n]", "", bernie_organic$text)
 warren_organic$text <-  gsub("[\r\n]", "", warren_organic$text)
 pete_organic$text <-  gsub("[\r\n]", "", pete_organic$text)
 biden_organic$text <-  gsub("[\r\n]", "", biden_organic$text)
 tweets_organic$text <-  gsub("[\r\n]", "", tweets_organic$text)
-
 
 
 # Removing punctuation 
@@ -50,15 +48,13 @@ pete_organic$text <-  gsub("[[:punct:]]", "", pete_organic$text)
 biden_organic$text <-  gsub("[[:punct:]]", "", biden_organic$text)
 tweets_organic$text <-  gsub("[[:punct:]]", "", tweets_organic$text)
 
-
-
 # Words I'm adding as stop words 
 
-custom_list <- c("aapi2020", "ve", "II", "Il", "ll", "lI", "â","iâ", "weâ", "canâ", "itâ", "caign", "hshire", "im", "i'm", "ive", "it's", "chip", "you're", "we're", "fitn", "can't")
+custom_list <- c("youâ", "ve", "II", "Il", "ll", "lI", "â","iâ", "weâ", "canâ", "itâ", "caign", "hshire", "im", "i'm", "ive", "it's", "chip", "you're", "we're", "fitn", "can't")
 custom_df <- tibble(joinColumn = custom_list)
 
-
 # Removing stop words
+
 bernie_cleaned <- bernie_organic %>%
   select(text) %>%
   unnest_tokens(word, text)
@@ -69,7 +65,6 @@ bernie_cleaned <- bernie_cleaned %>%
 bernie_cleaned <- bernie_cleaned %>%
   anti_join(custom_df,
             by = c("word" = "joinColumn"))
-
 
 warren_cleaned <- warren_organic %>%
   select(text) %>%

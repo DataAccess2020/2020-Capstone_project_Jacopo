@@ -1,4 +1,4 @@
-source(here::here("scripts/tweets by the candidates","00_set_up.R"))
+source(here::here("scripts","00_set_up.R"))
 
 
 # Downloading the 1000 most recent Bernie Sanders's tweets, saving them as a .csv file, and importing the dataset

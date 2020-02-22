@@ -1,4 +1,26 @@
-source(here::here("scripts/tweets by the candidates","03_text_analysis.R"))
+source(here::here("scripts","03_text_analysis.R"))
+
+# Sentiment analysis for all the candidates at once ----------------------------------------
+
+tweets_cleaned <- iconv(tweets_cleaned, from="UTF-8", to="ASCII", sub="")
+
+
+tweets_sentiment <- get_nrc_sentiment((tweets_cleaned))
+sentimentscores_tweets <- data.frame(colSums(tweets_sentiment[,]))
+
+names(sentimentscores_tweets) <- "Score"
+
+sentimentscores_tweets <- cbind("sentiment"=rownames(sentimentscores_tweets),sentimentscores_tweets)
+
+rownames(sentimentscores_tweets) <- NULL
+
+ggplot(data=sentimentscores_tweets,aes(x=sentiment,y=Score))+
+  geom_bar(aes(fill=sentiment),stat = "identity")+
+  theme(legend.position="none")+
+  xlab("Sentiments")+ylab("Scores")+
+  ggtitle("Total sentiment based on scores (All four candidates)")+
+  theme_minimal()
+
 
 # Sentiment analysis for Bernie Sanders ----------------------------------------
 
@@ -63,7 +85,7 @@ ggplot(data=sentimentscores_pete,aes(x=sentiment,y=Score))+
   theme_minimal()
 
 
-# Sentiment analysis for Joe Biden
+# Sentiment analysis for Joe Biden ----------------------------------------------------------
 
 biden_cleaned <- iconv(biden_cleaned, from="UTF-8", to="ASCII", sub="")
 
@@ -83,5 +105,14 @@ ggplot(data=sentimentscores_biden,aes(x=sentiment,y=Score))+
   ggtitle("Total sentiment based on scores (Joe Biden)")+
   theme_minimal()
 
+
+dat <- data.frame(
+  Emotion = sentimentscores_bernie$sentiment, 
+  Sanders = sentimentscores_bernie$Score,
+  Warren = sentimentscores_warren$Score,
+  Buttigieg = sentimentscores_pete$Score,
+  Biden = sentimentscores_biden$Score
+  
+)
 
 

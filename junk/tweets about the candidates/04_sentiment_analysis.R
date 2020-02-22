@@ -62,5 +62,26 @@ ggplot(data=about_pete_sentimentscores,aes(x=sentiment,y=Score))+
   ggtitle("Total sentiment based on scores (Pete Buttigieg)")+
   theme_minimal()
 
+# Tweets about Joe Biden -----------------------------------------------------------------
+
+about_biden_cleaned <- iconv(about_biden_cleaned, from="UTF-8", to="ASCII", sub="")
+
+about_biden_sentiment <- get_nrc_sentiment((about_biden_cleaned))
+about_biden_sentimentscores <- data.frame(colSums(about_biden_sentiment[,]))
+
+names(about_biden_sentimentscores) <- "Score"
+
+about_biden_sentimentscores <- cbind("sentiment"=rownames(about_biden_sentimentscores),about_biden_sentimentscores)
+
+rownames(about_biden_sentimentscores) <- NULL
+
+ggplot(data=about_biden_sentimentscores,aes(x=sentiment,y=Score))+
+  geom_bar(aes(fill=sentiment),stat = "identity")+
+  theme(legend.position="none")+
+  xlab("Sentiments")+ylab("Scores")+
+  ggtitle("Total sentiment based on scores (Joe Biden)")+
+  theme_minimal()
+
+
 
 
