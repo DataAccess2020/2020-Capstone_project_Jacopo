@@ -18,7 +18,7 @@ This small research aims at gaining insight into the Twitter content concerning 
 
 The goal of this research is to analyze Twitter data concerning the four main Democratic candidates in order to highlight the underlying emotion and sentiment beneath their tweets and to shed light on the most frequent topics and issues. The candidates whose Tweets were analyzed are Bernie Sanders, Elizabeth Warren, Pete Buttigieg and Joe Biden.
 
-# Reasons behind my choice 
+# Choice of the subject matter 
 
 The choice of this topic is partly driven by a long-standing interest in American politics and culture, but more importantly by a desire to deepen my knowledge of digital analysis methods and social media in general. After my master degree, I plan on working in the communication and marketing field and in order to be successful in this area acquiring some basic skills in the analysis of social media data is essential. Though I realize that in order to land a good marketing job many more skills need to be added to my talent stack, this small project might turn out to be a good stepping stone in my professional development. 
 
@@ -49,7 +49,7 @@ library(syuzhet)
 
 ## Data collection
 
-The candidates’ tweets were retrieved with the get_timelines function from the Rtweet package, which allows users to scrape the most recent 3200 tweets from specific accounts.  
+The candidates’ tweets were retrieved with the `get_timelines` function from the Rtweet package, which allows users to scrape the most recent 3200 tweets from specific accounts.  
 
 The argument n allows me to set the number of tweets to scrape, in this case it was 1000 for each candidate. 
 
@@ -98,7 +98,7 @@ tweets_cleaned <- tweets_organic %>%
 
 ```
 
-Secondly, I removed the stop words with an anti_join. An anti_join gives us the observations in our original dataset (in this case, the words from bernie_cleaned) that do not exist in the other table (the stop words). 
+Secondly, I removed the stop words with an anti_join. An anti_join gives us the observations in our original dataset (in this case, the words from tweets_cleaned) that do not exist in the other table (the stop words). 
 
 ```{r}
 tweets_cleaned <- tweets_cleaned %>%
@@ -120,7 +120,7 @@ tweets_cleaned <- tweets_cleaned %>%
 
 ```
 
-After gedding rid of the stop words, I briefly analyzed the text by counting the most frequent words in the candidates' tweets. I will delve deeper into these results in the final part of this report.
+After getting rid of the stop words, I briefly analyzed the text by counting the most frequent words in the candidates' tweets. I will delve deeper into these results in the final part of this report.
 
 ```{r}
 tweets_cleaned %>% 
@@ -140,7 +140,7 @@ tweets_cleaned %>%
 
 ## Sentiment analysis 
 
-In order to conduct some basic sentiment analysis, I converted the sets of words from UTF-8 to ASCII. Afterwards, I used the get_nrc_sentiment function from the syuzhet package, which calls the NRC sentiment dictionary to calculate the presence of eight different emotions and their corresponding valence in a text file.
+In order to conduct some basic sentiment analysis, I converted the sets of words from UTF-8 to ASCII. Afterwards, I used the `get_nrc_sentiment` function from the syuzhet package, which calls the NRC sentiment dictionary to calculate the presence of eight different emotions and their corresponding valence in a text file.
 
 ```{r}
 tweets_cleaned <- iconv(tweets_cleaned, from="UTF-8", to="ASCII", sub="")
@@ -178,27 +178,76 @@ As explained in the previous section, the Twitter data have been collected with 
 
 As a result, in this project I wasn't able to produce a fixed and unchanging dataset. So, for example, if one year from now other users were to run my lines of code to scrape the candidates' tweets, they would not get the same tweets that I am working on today. Therefore the reproducibility of my work and analysis is compromised. 
 
-As far as I know, the Rtweet package package doesn’t allow users to use the get_timelines function with a specific time interval (the “from” and “until” arguments are only available for the search_tweets function).
+As far as I know, the Rtweet package package doesn’t allow users to use the `get_timelines` function with a specific time interval (the “from” and “until” arguments are only available for the search_tweets function).
 
 ## Removing stop words
 
-Removing stop words turned out to be more challenging than expected. This was mostly due to the fact that the `anti_join(stop_words)` function did not remove all the stop words I intended to leave out. However, after a couple of quick Google searches I found out a way to add some extra stop words, by inserting them manually into a dataframe and then removing from the set of words via an anti_join, as I explained in the previous section. 
+Removing stop words turned out to be more challenging than expected. This was mostly due to the fact that the `anti_join(stop_words)` function did not remove all the stop words I intended to leave out. However, after a couple of quick Google searches I found out a way to add some extra stop words, by inserting them manually into a dataframe and then removing from the set of words via an `anti_join`.
 
 
 # Commenting the results 
+
+## Retweets and favorites
+
+The table below portrays a quite unambiguous picture as to which candidate is the most popular on Twitter. Bernie Sanders largely outscores his three peers both on retweets and favorites.
+
+I've added the kable() function from the knitr library to display a better-looking table. 
+
+```{r, message = F, echo = F}
+library(knitr)
+tweets %>% 
+  group_by(screen_name) %>% 
+  summarize (average_retweet = mean(retweet_count, na.rm = T),
+             average_favorite = mean(favorite_count, na.rm = T)) %>% 
+  arrange(desc(average_retweet)) %>% 
+  kable()
+```
+
+
+## Frequency 
+
+The graph below plots the frequency in tweets by the four Democratic candidates. Here are some interestin takeaways:
+
+1. The noticeable spike in frequency occurring around January the 14th coincides with the seventh Democratic debate that took place in Des Moines, Iowa the same day. 
+
+2. A second spike in frequency occured approximately between February the 4th and February the 7th. Over this period the Iowa caucus controversy and the Democratic debate took place.
+
+3. The last increase in frequency portrayed in the graph is most likely due to the ninth Democratic debate and to the Nevada caucuses of February the 22nd. 
+
+4. In all these peaks Elizabeth Warren appears to outdo her opponents in terms of frequency of tweets. Joe Biden, on the other hand, has the least account account among the four. 
+
+```{r}
+tweets %>%
+  filter(created_at > "2020-01-01") %>%
+  group_by(screen_name) %>%
+  ts_plot("days") +
+  geom_point() +
+  theme_minimal() +
+  theme(
+    legend.title = element_blank(),
+    legend.position = "bottom",
+    plot.title = element_text(face = "bold")) +
+  labs(
+    x = NULL, y = NULL,
+    title = "Frequency of Twitter statuses posted by the four main Democratic candidates",
+    subtitle = "Twitter status (tweet) counts aggregated by day from January 2020"
+  )
+
+```
+
+
 
 # Things this project taught me 
 
 This project turned out to be useful in more ways than one. There are many things I learned by working on it that I will treasure in the future:
 
-- **Learning to use rtweet**: in recent years I developed an interest in Twitter, so I had a natural curiosity in learning to use this package. Rtweet is just as useful as it is easy to use (although, as I mentioned in previous sections, I had some issues with the `get_timelines` function). This project allowed to delve deeper into its characteristics and its functions, as well as its limitations (most notably the fact that users cannot scrape more than 18 thousands tweets every fifteen minutes). 
+- **Learning to use rtweet**: in recent years I developed an interest in Twitter, so I had a natural curiosity in learning to use this package. Rtweet is just as useful as it is easy to use (although, as I mentioned in previous sections, I had some issues with the `get_timelines` function). This project allowed me to delve deeper into its characteristics and functions. Equally important, I got to familiarize as well with its limitations, such as the inability of the search_tweets function to retrieve tweets older than 9 days, or the fact that Twitter caps the number of search results returned to 18,000 every 15 minutes.
 
-- **Learning the basics of text analysis**: before this course and this project, I only had a vague idea as to what text and sentiment analysis were. Although I'm still far from being an expert of course, now I have a better grasp of these topics. Most importantly, I had the chance to learn these techniques hands-on, instead of just studying them on textbooks. However, I remain skeptical about sentiment analysis and the very arbitrary way in which it assigns emotions and sentiments to words, often regardless of their context. 
+- **Learning the basics of text analysis**: before this course and this project, I only had a vague idea as to what text and sentiment analysis were. Although I'm still far from being proficient, I now have a better grasp on these topics. In particular, I am glad to have learned about stop words and how to remove them.Most importantly, I had the chance to learn these techniques hands-on, instead of just studying them on textbooks. However, I remain skeptical about sentiment analysis and the very arbitrary way in which it assigns emotion and sentiment scores to words regardless of their context. 
 
-- **Refreshing previously acquired knowledge**: 
+- **Learning R functions not related to text analysis**: I have also had the opportunity to learn about useful R functions which I had never seen before, such as `gsub` and `anti_join`. Plus, I've got to refresh my knowledge of famous packages like ggplot2 and dplyr. 
 
-
-
+- **That I have to improve my stress management skills**: despite it being quite simple, this project took a toll on my psychological well-being these last weeks. This is probably due to the fact that I have only been coding for some months now, so I am still not used to spend many hours reading line of codes on a screen. Anyway, this project provided a reminder that if I intend to pursue a career in a busy corporate environment I'd better work on my stress management skills. 
 
 
 
@@ -209,4 +258,3 @@ You can also embed plots, for example:
 plot(pressure)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
