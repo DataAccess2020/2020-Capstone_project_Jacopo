@@ -122,10 +122,10 @@ tweets_cleaned <- tweets_cleaned %>%
 
 After getting rid of the stop words, I briefly analyzed the text by counting the most frequent words in the candidates' tweets. I will delve deeper into these results in the final part of this report.
 
-```{r}
+```{r, message = F, echo = F}
 tweets_cleaned %>% 
   count(word, sort = TRUE) %>% 
-  top_n(50) %>% 
+  top_n(30) %>% 
   mutate(word = reorder(word, n)) %>% 
   ggplot(aes(x = word, y = n)) +
   geom_col () +
@@ -234,6 +234,24 @@ tweets %>%
   )
 
 ```
+
+## Most frequent words 
+
+The text analysis I conducted revealed the most frequent words in the tweets shared by the four candidates. On the basis of the results displayed on page 5 of this report and in the scripts in the GitHub repository, the following conclusions can be drawn:
+
+1. Unsurprisingly, "Trump" is the most recurrent word in the dataset. This result corroborates the impression that defeating Trump is perceived as the Democratic Party's priority in this election.  
+
+2. Many words in the dataset are mostly rethorical and non-ideological ("America", "people", "time", etc.). Others instead refer to actual policies and issues. Among the latter we find both "health" and "care" as the most recurrent, signalling the increased importance that the topic of health care insurance has assumed in the American public debate. This result provides some evidence in support of the thesis that the Sanders campaign in 2016 brought progressive policies at the forefront of the public discourse.
+
+3. "Climate" ranks quite high as well, thanks to the attention this issue received on the global scale in the last months.
+
+4. Bernie Sanders is the only candidate to have "war" and "workers" in his 30 most frequent words. 
+
+5. Joe Biden is the only candidate whose top 30 most recurrent words include "gun" and "violence". 
+
+6. Words missing from the top 30 are just as interesting as the ones included: "gender", "female", "immigration", "race" and "police" are all absent. 
+
+## Sentiment analysis 
 
 
 
