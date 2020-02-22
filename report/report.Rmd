@@ -1,11 +1,10 @@
 ---
-title: "Report"
+title: "Capstone project: report"
 author: "Jacopo Malatesta"
-date: "21/2/2020"
-output: 
-  html_document:
-    toc: true
-    theme: spacelab
+date: "22/2/2020"
+output:
+  pdf_document:
+    toc: yes
     highlight: pygments
 ---
 
@@ -13,11 +12,11 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Goals 
+# Goals of the project
 
 This small research aims at gaining insight into the Twitter content concerning the 2020 Democratic Party presidential primaries. The Twitter discourse around this topic has come under a lot of scrutiny in recent times due to the often aggressive behavior of both the candidates and their supporters. 
 
-The goal of this research is to analyze Twitter data concerning the four main Democratic candidates in order to highlight the underlying emotion and sentiment beneath their tweets. The candidates whose Tweets were analyzed are Bernie Sanders, Elizabeth Warren, Pete Buttigieg and Joe Biden.
+The goal of this research is to analyze Twitter data concerning the four main Democratic candidates in order to highlight the underlying emotion and sentiment beneath their tweets and to shed light on the most frequent topics and issues. The candidates whose Tweets were analyzed are Bernie Sanders, Elizabeth Warren, Pete Buttigieg and Joe Biden.
 
 # Reasons behind my choice 
 
@@ -27,13 +26,13 @@ The choice of this topic is partly driven by a long-standing interest in America
 
 The overall structure of this work was inspired by Céline Van den Rul’s article “A Guide to Mining and Analysing Tweets with R”, which also served as a source of inspiration for many of the lines of codes that were used. 
 
-This project consists of three separate steps: collecting the Twitter data, analyzing the content and sentiment of its text and visualizing the results. 
+This project consists of three separate steps: collecting Twitter data, analyzing the content and sentiment of its text and visualizing the results. 
 
 The data collection has been carried out by scraping Twitter data with an R studio package called “Rtweet”; the analysis and visualization parts instead required the use of basic text and sentimental analysis tools, such as the syuzhet and tidytext packages. Naturally, more common packages such as rio, dplyr and ggplot2 were used as well throughout the project. 
 
 # Technical overview 
 
-In this part I'll go through each step of my project, highlighting its features as well its shortcomings and weaknesses. However, due to the length of some of the chunks of codes, only some lines will be embedded and commented. Readers interested in having a deeper look at the codes can inspect the complete scripts in the scripts folder.
+In this part I'll go through each step of the project by commenting the scripts I wrote. However, due to the length of some of the chunks of codes, only some lines will be embedded and commented. Readers interested in having a deeper look at the codes can inspect the complete scripts in the scripts folder. 
 
 ## Packages used 
 
@@ -50,7 +49,7 @@ library(syuzhet)
 
 ## Data collection
 
-The candidates’ tweets were retrieved with the get_timelines function from the Rtweet package. get_timelines allows users to scrape the most recent 3200 tweets from specific accounts. This feature, albeit useful, lead to the first setback I suffered in this work: since it always retrieves recent tweets, this function retrieves different tweets depending on when it is run. As a result, this project doesn't produce a fixed and unchanging dataset, thus undermining its reproducibility. So, for example, if a user were to scrape these tweets with this line of code one year from now, he wouldn’t get the same tweets that I’m working on today. As far as I know, the Rtweet package package doesn’t allow users to use the get_timelines function with a specific time interval (the “from” and “until” arguments are only available for the search_tweets function). 
+The candidates’ tweets were retrieved with the get_timelines function from the Rtweet package, which allows users to scrape the most recent 3200 tweets from specific accounts.  
 
 The argument n allows me to set the number of tweets to scrape, in this case it was 1000 for each candidate. 
 
@@ -126,7 +125,7 @@ After gedding rid of the stop words, I briefly analyzed the text by counting the
 ```{r}
 tweets_cleaned %>% 
   count(word, sort = TRUE) %>% 
-  top_n(20) %>% 
+  top_n(50) %>% 
   mutate(word = reorder(word, n)) %>% 
   ggplot(aes(x = word, y = n)) +
   geom_col () +
@@ -157,7 +156,7 @@ rownames(sentimentscores_tweets) <- NULL
 
 ```
 
-Finally, I visualize the scores for each emotion with the ggplot2 package. 
+Finally, I visualized the scores for each emotion with the ggplot2 package. 
 
 ```{r}
 ggplot(data=sentimentscores_tweets,aes(x=sentiment,y=Score))+
@@ -169,8 +168,37 @@ ggplot(data=sentimentscores_tweets,aes(x=sentiment,y=Score))+
 
 ```
 
+# Problems and shortcomings 
+
+This section of the report will go through the main challanges and struggles I have encountered in my work, as well its failures and shortcomings. 
+
+## Lack of a permanent dataset
+
+As explained in the previous section, the Twitter data have been collected with the `get_timelines` function from the R tweet dataset. This function retrieves the most recent tweets shared by any specified Twitter account. This feature, albeit useful, lead to the first setback I suffered in this work: since it always retrieves the most recent tweets, this function gets different tweets depending on when it is run. 
+
+As a result, in this project I wasn't able to produce a fixed and unchanging dataset. So, for example, if one year from now other users were to run my lines of code to scrape the candidates' tweets, they would not get the same tweets that I am working on today. Therefore the reproducibility of my work and analysis is compromised. 
+
+As far as I know, the Rtweet package package doesn’t allow users to use the get_timelines function with a specific time interval (the “from” and “until” arguments are only available for the search_tweets function).
+
+## Removing stop words
+
+Removing stop words turned out to be more challenging than expected. This was mostly due to the fact that the `anti_join(stop_words)` function did not remove all the stop words I intended to leave out. However, after a couple of quick Google searches I found out a way to add some extra stop words, by inserting them manually into a dataframe and then removing from the set of words via an anti_join, as I explained in the previous section. 
+
 
 # Commenting the results 
+
+# Things this project taught me 
+
+This project turned out to be useful in more ways than one. There are many things I learned by working on it that I will treasure in the future:
+
+- **Learning to use rtweet**: in recent years I developed an interest in Twitter, so I had a natural curiosity in learning to use this package. Rtweet is just as useful as it is easy to use (although, as I mentioned in previous sections, I had some issues with the `get_timelines` function). This project allowed to delve deeper into its characteristics and its functions, as well as its limitations (most notably the fact that users cannot scrape more than 18 thousands tweets every fifteen minutes). 
+
+- **Learning the basics of text analysis**: before this course and this project, I only had a vague idea as to what text and sentiment analysis were. Although I'm still far from being an expert of course, now I have a better grasp of these topics. Most importantly, I had the chance to learn these techniques hands-on, instead of just studying them on textbooks. However, I remain skeptical about sentiment analysis and the very arbitrary way in which it assigns emotions and sentiments to words, often regardless of their context. 
+
+- **Refreshing previously acquired knowledge**: 
+
+
+
 
 
 

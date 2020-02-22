@@ -118,7 +118,7 @@ tweets_cleaned <- tweets_cleaned %>%
 
 tweets_cleaned %>% 
   count(word, sort = TRUE) %>% 
-  top_n(20) %>% 
+  top_n(50) %>% 
   mutate(word = reorder(word, n)) %>% 
   ggplot(aes(x = word, y = n)) +
   geom_col () +
@@ -133,7 +133,7 @@ tweets_cleaned %>%
 
 bernie_cleaned %>% 
   count(word, sort = TRUE) %>% 
-  top_n(20) %>% 
+  top_n(30) %>% 
   mutate(word = reorder(word, n)) %>% 
   ggplot(aes(x = word, y = n)) +
   geom_col () +
@@ -148,7 +148,7 @@ bernie_cleaned %>%
 
 warren_cleaned %>% 
   count(word, sort = TRUE) %>% 
-  top_n(20) %>% 
+  top_n(30) %>% 
   mutate(word = reorder(word, n)) %>% 
   ggplot(aes(x = word, y = n)) +
   geom_col () +
@@ -163,7 +163,7 @@ warren_cleaned %>%
 
 pete_cleaned %>% 
   count(word, sort = TRUE) %>% 
-  top_n(20) %>% 
+  top_n(30) %>% 
   mutate(word = reorder(word, n)) %>% 
   ggplot(aes(x = word, y = n)) +
   geom_col () +
@@ -178,7 +178,7 @@ pete_cleaned %>%
 
 biden_cleaned %>% 
   count(word, sort = TRUE) %>% 
-  top_n(20) %>% 
+  top_n(30) %>% 
   mutate(word = reorder(word, n)) %>% 
   ggplot(aes(x = word, y = n)) +
   geom_col () +
