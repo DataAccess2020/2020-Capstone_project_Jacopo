@@ -24,7 +24,7 @@
 <tr>
 <td>
 
-You are reading Jacopo Malatesta's capstone project for the <i>Data Access and Regulation</i> course of the <i>Data Analytics for Politics, Society and Complex Organizations</i> Master program (University of Milan). This small research aims at gaining insight into the Twitter content regarding the 2020 Democratic primaries. To achieve this, tweets shared by the candidates have been scraped and analyzed with basic tools of text and sentiment analysis. Céline Van den Rul's <a href="https://towardsdatascience.com/a-guide-to-mining-and-analysing-tweets-with-r-2f56818fdd16"> article </a> on analyzing tweets with R served as a model for this work.  
+You are reading Jacopo Malatesta's capstone project for the <i>Data Access and Regulation</i> course of the <i>Data Analytics for Politics, Society and Complex Organizations</i> Master program (University of Milan). This small research aims at gaining insight into the Twitter content concerning the 2020 Democratic Party presidential primaries. The goal of this research is to analyze Twitter data concerning the four main Democratic candidates in order to highlight the underlying emotion and sentiment beneath their tweets and to shed light on the most frequent topics and issues. The candidates are Bernie Sanders, Elizabeth Warren, Pete Buttigieg and Joe Biden. Céline Van den Rul's <a href="https://towardsdatascience.com/a-guide-to-mining-and-analysing-tweets-with-r-2f56818fdd16"> article </a> on analyzing tweets with R served as a model for this work.  
 
 ![A screenshot of one of the scripts](images/screenshot.png)
 <p align="right">
