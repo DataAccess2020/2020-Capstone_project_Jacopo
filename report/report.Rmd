@@ -253,6 +253,15 @@ The text analysis I conducted revealed the most frequent words in the tweets sha
 
 ## Sentiment analysis 
 
+The sentiment analysis conducted in this research did not provide particulary meaningful insights. The scores on sentiments and emotions do not seem to vary significantly between the four candidates. However, there are still some observations to be made: 
+
+1. For each candidate words expressing positive sentiments outscore words expressing negative ones. This is unsurprising since politicians are expected to project a positive image and refrain from negative attitudes.
+
+2. Buttigieg has the lowest score on negative sentiment.
+
+3. Biden has both the highest score on negative sentiment and the highest score on positive sentiment.
+
+4. For every candidate trust is the emotion with the highest score and surprise is the one with the lowest.
 
 
 # Things this project taught me 
@@ -266,13 +275,4 @@ This project turned out to be useful in more ways than one. There are many thing
 - **Learning R functions not related to text analysis**: I have also had the opportunity to learn about useful R functions which I had never seen before, such as `gsub` and `anti_join`. Plus, I've got to refresh my knowledge of famous packages like ggplot2 and dplyr. 
 
 - **That I have to improve my stress management skills**: despite it being quite simple, this project took a toll on my psychological well-being these last weeks. This is probably due to the fact that I have only been coding for some months now, so I am still not used to spend many hours reading line of codes on a screen. Anyway, this project provided a reminder that if I intend to pursue a career in a busy corporate environment I'd better work on my stress management skills. 
-
-
-
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
 

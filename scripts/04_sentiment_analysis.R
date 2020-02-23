@@ -112,7 +112,4 @@ dat <- data.frame(
   Warren = sentimentscores_warren$Score,
   Buttigieg = sentimentscores_pete$Score,
   Biden = sentimentscores_biden$Score
-  
 )
-
-

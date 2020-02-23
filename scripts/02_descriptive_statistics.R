@@ -24,9 +24,8 @@ tweets %>%
     plot.title = element_text(face = "bold")) +
   labs(
     x = NULL, y = NULL,
-    title = "Frequency of Twitter statuses posted by news organization",
-    subtitle = "Twitter status (tweet) counts aggregated by day from October/November 2017",
-    caption = "\nSource: Data collected from Twitter's REST API via rtweet"
+    title = "Frequency of Twitter statuses posted by the four candidates",
+    subtitle = "Twitter status (tweet) counts aggregated by day from January 2019"
   )
 
 

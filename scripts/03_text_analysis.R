@@ -114,11 +114,11 @@ tweets_cleaned <- tweets_cleaned %>%
 
 # Visualization -------------------------------------------------------------------------------------
 
-# Top 20 most frequent words in tweets by all four candidates combined
+# Top 30 most frequent words in tweets by all four candidates combined
 
 tweets_cleaned %>% 
   count(word, sort = TRUE) %>% 
-  top_n(50) %>% 
+  top_n(30) %>% 
   mutate(word = reorder(word, n)) %>% 
   ggplot(aes(x = word, y = n)) +
   geom_col () +
