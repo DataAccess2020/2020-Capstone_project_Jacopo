@@ -24,7 +24,7 @@ The choice of this topic is partly driven by a long-standing interest in America
 
 # Main features of the projects
 
-The overall structure of this work was inspired by Céline Van den Rul’s article “A Guide to Mining and Analysing Tweets with R”, which also served as a source of inspiration for many of the lines of codes that were used. 
+The overall structure of this work was inspired by Céline Van den Rul’s [article](https://towardsdatascience.com/a-guide-to-mining-and-analysing-tweets-with-r-2f56818fdd16) “A Guide to Mining and Analysing Tweets with R”, which also served as a source of inspiration for many of the lines of codes that were used. 
 
 This project consists of three separate steps: collecting Twitter data, analyzing the content and sentiment of its text and visualizing the results. 
 
@@ -32,7 +32,7 @@ The data collection has been carried out by scraping Twitter data with the “Rt
 
 # Technical overview 
 
-In this part I'll go through each step of the project by commenting the scripts I wrote. However, due to the length of some of the chunks of codes, only some lines will be embedded and commented. Readers interested in having a deeper look at the codes can inspect the complete scripts in the scripts folder. 
+In this part I'll go through each step of the project by commenting the scripts I wrote. However, to keep this report nice and short, not all the lines from the scripts will be embedded and commented. Readers interested in having a deeper look at the codes can inspect the complete scripts in the scripts folder. 
 
 ## Packages used 
 
@@ -41,7 +41,6 @@ library(dplyr)
 library(rtweet)
 library(rio)
 library(tidytext)
-library(quanteda)
 library(ggplot2)
 library(syuzhet)
 
@@ -88,7 +87,7 @@ tweets_organic$text <- gsub("[[:punct:]]", "", tweets_organic$text)
 
 The next step was using the tidytext package to remove stop words from the words in the text column. 
 
-Firstly, I split the text column into different words with the unnest_tokens function. 
+Firstly, I split the text column into different words with the `unnest_tokens` function. 
 
 ```{r}
 tweets_cleaned <- tweets_organic %>%
@@ -175,9 +174,9 @@ This section of the report will go through the main challanges and struggles I h
 
 As explained in the previous section, the Twitter data have been collected with the `get_timelines` function from the R tweet dataset. This function retrieves the most recent tweets shared by any specified Twitter account. This feature, albeit useful, lead to the first setback I suffered in this work: since it always retrieves the most recent tweets, this function gets different tweets depending on when it is run. 
 
-As a result, in this project I wasn't able to produce a fixed and unchanging dataset. So, for example, if one year from now other users were to run my lines of code to scrape the candidates' tweets, they would not get the same tweets that I am working on today. Therefore the reproducibility of my work and analysis is compromised. 
+So, for example, if one year from now other users were to run my lines of code to scrape the candidates' tweets, they would not get the same tweets that I am working on today. As a result, in this project I wasn't able to produce a fixed and unchanging dataset. Therefore the reproducibility of my work and analysis is compromised. 
 
-As far as I know, the Rtweet package package doesn’t allow users to use the `get_timelines` function with a specific time interval (the “from” and “until” arguments are only available for the search_tweets function).
+As far as I know, the Rtweet package doesn’t allow users to use the `get_timelines` function with a specific time interval (the “from” and “until” arguments are only available for the `search_tweets` function).
 
 ## Removing stop words
 
@@ -190,7 +189,7 @@ Removing stop words turned out to be more challenging than expected. This was mo
 
 The table below portrays a quite unambiguous picture as to which candidate is the most popular on Twitter. Bernie Sanders largely outscores his three peers both on retweets and favorites.
 
-I've added the kable() function from the knitr library to display a better-looking table. 
+I've added the `kable()` function from the knitr library to display a better-looking table. 
 
 ```{r, message = F, echo = F}
 library(knitr)
@@ -205,7 +204,7 @@ tweets %>%
 
 ## Frequency 
 
-The graph below plots the frequency in tweets by the four Democratic candidates. Here are some interestin takeaways:
+The graph below plots the frequency in tweets by the four Democratic candidates. Here are some interesting takeaways:
 
 1. The noticeable spike in frequency occurring around January the 14th coincides with the seventh Democratic debate that took place in Des Moines, Iowa the same day. 
 
@@ -213,7 +212,7 @@ The graph below plots the frequency in tweets by the four Democratic candidates.
 
 3. The last increase in frequency portrayed in the graph is most likely due to the ninth Democratic debate and to the Nevada caucuses of February the 22nd. 
 
-4. In all these peaks Elizabeth Warren appears to outdo her opponents in terms of frequency of tweets. Joe Biden, on the other hand, has the least account account among the four. 
+4. In all these peaks Elizabeth Warren appears to outdo her opponents in terms of frequency of tweets. Joe Biden's account, on the other hand, is the least active account among the four. 
 
 ```{r}
 tweets %>%
@@ -240,11 +239,11 @@ The text analysis I conducted revealed the most frequent words in the tweets sha
 
 1. Unsurprisingly, "Trump" is the most recurrent word in the dataset. This result corroborates the impression that defeating Trump is perceived as the Democratic Party's priority in this election.  
 
-2. Many words in the dataset are mostly rethorical and non-ideological ("America", "people", "time", etc.). Others instead refer to actual policies and issues. Among the latter we find both "health" and "care" as the most recurrent, signalling the increased importance that the topic of health care insurance has assumed in the American public debate. This result provides some evidence in support of the thesis that the Sanders campaign in 2016 brought progressive policies at the forefront of the public discourse.
+2. Many words in the dataset are mostly rethorical and non-ideological ("America", "people", "time", etc.). Others instead refer to actual policies and issues. Among the latter we find both "health" and "care" as the most recurrent, signalling the increased importance that the topic of health care insurance has gained in the American public debate. This result provides some evidence in support of the thesis that the 2016 Sanders campaign brought progressive policies at the forefront of the American political discourse.
 
 3. "Climate" ranks quite high as well, thanks to the attention this issue received on the global scale in the last months.
 
-4. Bernie Sanders is the only candidate to have "war" and "workers" in his 30 most frequent words. 
+4. Bernie Sanders is the only candidate to feature "war" and "workers" in his 30 most frequent words. 
 
 5. Joe Biden is the only candidate whose top 30 most recurrent words include "gun" and "violence". 
 
@@ -260,14 +259,14 @@ The sentiment analysis conducted in this research did not provide particulary me
 
 3. Biden has both the highest score on negative sentiment and the highest score on positive sentiment.
 
-4. For every candidate trust is the emotion with the highest score and surprise is the one with the lowest.
+4. For every candidate trust is the emotion with the highest score and surprise the one with the lowest.
 
 
 # Things this project taught me 
 
 This project turned out to be useful in more ways than one. There are many things I learned by working on it that I will treasure in the future:
 
-- **Learning to use rtweet**: in recent years I developed an interest in Twitter, so I had a natural curiosity in learning to use this package. Rtweet is just as useful as it is easy to use (although, as I mentioned in previous sections, I had some issues with the `get_timelines` function). This project allowed me to delve deeper into its characteristics and functions. Equally important, I got to familiarize as well with its limitations, such as the inability of the 'search_tweets' function to retrieve tweets older than 9 days, or the fact that Twitter caps the number of search results returned to 18,000 every 15 minutes.
+- **Learning to use rtweet**: in recent years I developed an interest in Twitter, so I had a natural curiosity in learning to use this package. Rtweet is just as useful as it is easy to use (although, as I mentioned in previous sections, I had some issues with the `get_timelines` function). This project allowed me to delve deeper into its characteristics and functions. Equally important, I also got to familiarize with its limitations, such as the inability of the `search_tweets` function to retrieve tweets older than 9 days, or the fact that Twitter caps the number of search results returned to 18,000 every 15 minutes.
 
 - **Learning the basics of text analysis**: before this course and this project, I only had a vague idea as to what text and sentiment analysis were. Although I'm still far from being proficient, I now have a better grasp on these topics. In particular, I am glad to have learned about stop words and how to remove them. Most importantly, I had the chance to learn these techniques hands-on, instead of just studying them on textbooks. However, I remain skeptical about sentiment analysis and the very arbitrary way in which it assigns emotion and sentiment scores to words regardless of their context. 
 
