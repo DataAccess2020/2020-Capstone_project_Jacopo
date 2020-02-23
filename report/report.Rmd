@@ -274,3 +274,6 @@ This project turned out to be useful in more ways than one. There are many thing
 
 - **That I need to improve my stress management skills**: despite it being quite simple, this project took a toll on my psychological well-being these last weeks. This is probably due to the fact that I have only been coding for some months now, so I am still not used to spend many hours reading line of codes on a screen. Anyway, this project provided a reminder that if I intend to pursue a career in a busy corporate environment I'd better work on my stress management skills. 
 
+word count = 1852
+
+
