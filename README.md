@@ -60,6 +60,7 @@ install.packages("syuzhet")
 
 Folder name | Content
 ------------ | -------------
+graphs | Graphs produced in the scripts
 images | Images used in the read_me file
 junk | Tests 
 output | Scraped tweets 
