@@ -1,6 +1,6 @@
 ---
 title: "Capstone project: report"
-author: "Jacopo Malatesta"
+author: "Jacopo Malatesta (jacopo.malatesta@studenti.unimi.it)"
 date: "22/2/2020"
 output:
   pdf_document:
@@ -16,11 +16,11 @@ knitr::opts_chunk$set(echo = TRUE)
 
 This small research aims at gaining insight into the Twitter content concerning the 2020 Democratic Party presidential primaries. The Twitter discourse around this topic has come under a lot of scrutiny in recent times due to the often aggressive behavior of both the candidates and their supporters. 
 
-The goal of this research is to analyze Twitter data concerning the four main Democratic candidates in order to highlight the underlying emotion and sentiment beneath their tweets and to shed light on the most frequent topics and issues. The candidates whose Tweets were analyzed are Bernie Sanders, Elizabeth Warren, Pete Buttigieg and Joe Biden.
+The goal of this research is to analyze Twitter data regarding the four main Democratic candidates in order to highlight the underlying emotion and sentiment beneath their tweets and to shed light on the most frequently mentioned topics and issues. The candidates whose Tweets were analyzed are Bernie Sanders, Elizabeth Warren, Pete Buttigieg and Joe Biden.
 
 # Choice of the subject matter 
 
-The choice of this topic is partly driven by a long-standing interest in American politics and culture, but more importantly by a desire to deepen my knowledge of digital analysis methods and social media in general. After my master degree, I plan on working in the communication and marketing field and in order to be successful in this area acquiring some basic skills in the analysis of social media data is essential. Though I realize that in order to land a good marketing job many more skills need to be added to my talent stack, this small project might turn out to be a good stepping stone in my professional development. 
+The choice of this topic is partly driven by a long-standing interest in American politics and culture, but more importantly by a desire to deepen my knowledge of digital analysis methods and social media in general. After my Master degree, I plan on working in the communication and marketing field and in order to be successful in this area acquiring some basic skills in the analysis of social media data is essential. Though I realize that in order to land a good marketing job many more skills need to be added to my talent stack, this small project might turn out to be a good stepping stone in my professional development. 
 
 # Main features of the projects
 
@@ -28,7 +28,7 @@ The overall structure of this work was inspired by Céline Van den Rul’s artic
 
 This project consists of three separate steps: collecting Twitter data, analyzing the content and sentiment of its text and visualizing the results. 
 
-The data collection has been carried out by scraping Twitter data with an R studio package called “Rtweet”; the analysis and visualization parts instead required the use of basic text and sentimental analysis tools, such as the syuzhet and tidytext packages. Naturally, more common packages such as rio, dplyr and ggplot2 were used as well throughout the project. 
+The data collection has been carried out by scraping Twitter data with the “Rtweet” package; the analysis and visualization parts instead required the use of the syuzhet and tidytext packages. Naturally, more common packages such as rio, dplyr and ggplot2 were used as well throughout the project. 
 
 # Technical overview 
 
@@ -36,7 +36,7 @@ In this part I'll go through each step of the project by commenting the scripts 
 
 ## Packages used 
 
-```{r}
+```{r, message = FALSE}
 library(dplyr)
 library(rtweet)
 library(rio)
@@ -51,7 +51,7 @@ library(syuzhet)
 
 The candidates’ tweets were retrieved with the `get_timelines` function from the Rtweet package, which allows users to scrape the most recent 3200 tweets from specific accounts.  
 
-The argument n allows me to set the number of tweets to scrape, in this case it was 1000 for each candidate. 
+The argument n allows me to set the number of tweets to scrape, which in this case was 1000 for each candidate. 
 
 ```{r}
 overall_tweets <- get_timelines(c("JoeBiden", "PeteButtigieg", "ewarren", "BernieSanders"), n = 1000)
@@ -71,8 +71,7 @@ tweets_organic <- tweets[tweets$is_retweet==FALSE, ]
 
 ```
 
-
-The first step consisted in removing unwanted text elements, such as http elements, hashtag mentions, “amp” elements, and punctuation. In order to achieve this, the gsub function was used. This function searches for a pattern and replaces it with a character string. 
+The first step consisted in removing unwanted text elements, such as http elements, hashtag mentions, “amp” elements, and punctuation. In order to achieve this, the `gsub` function was used. This function searches for a pattern and replaces it with a character string. 
 
 ```{r}
 tweets_organic$text <- gsub("https\\S*", "", tweets_organic$text)
@@ -98,7 +97,7 @@ tweets_cleaned <- tweets_organic %>%
 
 ```
 
-Secondly, I removed the stop words with an anti_join. An anti_join gives us the observations in our original dataset (in this case, the words from tweets_cleaned) that do not exist in the other table (the stop words). 
+Secondly, I removed the stop words with an `anti_join`. An `anti_join` gives us the observations in our original dataset (in this case, the words from tweets_cleaned) that do not exist in the other table (the stop words). 
 
 ```{r}
 tweets_cleaned <- tweets_cleaned %>%
@@ -268,11 +267,11 @@ The sentiment analysis conducted in this research did not provide particulary me
 
 This project turned out to be useful in more ways than one. There are many things I learned by working on it that I will treasure in the future:
 
-- **Learning to use rtweet**: in recent years I developed an interest in Twitter, so I had a natural curiosity in learning to use this package. Rtweet is just as useful as it is easy to use (although, as I mentioned in previous sections, I had some issues with the `get_timelines` function). This project allowed me to delve deeper into its characteristics and functions. Equally important, I got to familiarize as well with its limitations, such as the inability of the search_tweets function to retrieve tweets older than 9 days, or the fact that Twitter caps the number of search results returned to 18,000 every 15 minutes.
+- **Learning to use rtweet**: in recent years I developed an interest in Twitter, so I had a natural curiosity in learning to use this package. Rtweet is just as useful as it is easy to use (although, as I mentioned in previous sections, I had some issues with the `get_timelines` function). This project allowed me to delve deeper into its characteristics and functions. Equally important, I got to familiarize as well with its limitations, such as the inability of the 'search_tweets' function to retrieve tweets older than 9 days, or the fact that Twitter caps the number of search results returned to 18,000 every 15 minutes.
 
-- **Learning the basics of text analysis**: before this course and this project, I only had a vague idea as to what text and sentiment analysis were. Although I'm still far from being proficient, I now have a better grasp on these topics. In particular, I am glad to have learned about stop words and how to remove them.Most importantly, I had the chance to learn these techniques hands-on, instead of just studying them on textbooks. However, I remain skeptical about sentiment analysis and the very arbitrary way in which it assigns emotion and sentiment scores to words regardless of their context. 
+- **Learning the basics of text analysis**: before this course and this project, I only had a vague idea as to what text and sentiment analysis were. Although I'm still far from being proficient, I now have a better grasp on these topics. In particular, I am glad to have learned about stop words and how to remove them. Most importantly, I had the chance to learn these techniques hands-on, instead of just studying them on textbooks. However, I remain skeptical about sentiment analysis and the very arbitrary way in which it assigns emotion and sentiment scores to words regardless of their context. 
 
 - **Learning R functions not related to text analysis**: I have also had the opportunity to learn about useful R functions which I had never seen before, such as `gsub` and `anti_join`. Plus, I've got to refresh my knowledge of famous packages like ggplot2 and dplyr. 
 
-- **That I have to improve my stress management skills**: despite it being quite simple, this project took a toll on my psychological well-being these last weeks. This is probably due to the fact that I have only been coding for some months now, so I am still not used to spend many hours reading line of codes on a screen. Anyway, this project provided a reminder that if I intend to pursue a career in a busy corporate environment I'd better work on my stress management skills. 
+- **That I need to improve my stress management skills**: despite it being quite simple, this project took a toll on my psychological well-being these last weeks. This is probably due to the fact that I have only been coding for some months now, so I am still not used to spend many hours reading line of codes on a screen. Anyway, this project provided a reminder that if I intend to pursue a career in a busy corporate environment I'd better work on my stress management skills. 
 
